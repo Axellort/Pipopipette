@@ -1,10 +1,14 @@
+//! SETTING CONSTANTS 
 const COLORS = ["red", "blue"]
 const CLASS_NAMES_PER_PLAYER = ["first", "second"];
 const CLASS_TAKEN = ["taken"];
 const n = 2;
-console.log(document.getElementById(`border-0-0-V`))
 
-let bordersV = [[0, 0], [0, 0]];
+//! GETTING ELEMENTS AND SETTING ONCLICKS
+const scoresElementsIds = ["first-score", "second-score"];
+const scoresElements = scoresElementsIds.map((id) => document.getElementById(id))
+
+let bordersV = [[0, 0], [0, 0]]; // TODO A MODIFIER, C'EST MOCHE COMME CA
 let bordersH = [[0, 0], [0, 0]];
 let tiles = [[0, 0], [0, 0]];
 let playerActu = 0;
@@ -21,6 +25,7 @@ for (let i = 0; i < n; i++) {
                 remplir(bordersV[i][j]);
                 checkRemplis(tiles, getJoueurActu());
                 getNextJoueur();
+                actualiserPoints();
             }
         } else {
             bordersV[i][j].onclick = () => {
@@ -29,6 +34,7 @@ for (let i = 0; i < n; i++) {
                 remplir(bordersV[i][j]);
                 checkRemplis(tiles, getJoueurActu());
                 getNextJoueur();
+                actualiserPoints();
 
             }
         }
@@ -39,6 +45,8 @@ for (let i = 0; i < n; i++) {
                 remplir(bordersH[i][j]);
                 checkRemplis(tiles, getJoueurActu());
                 getNextJoueur();
+                actualiserPoints();
+
             }
         } else {
             bordersH[i][j].onclick = () => {
@@ -47,16 +55,17 @@ for (let i = 0; i < n; i++) {
                 remplir(bordersH[i][j]);
                 checkRemplis(tiles, getJoueurActu());
                 getNextJoueur();
+                actualiserPoints();
+
             }
         }
 
 
     }
 }
-document.onclick = (ev) => {
 
-}
 
+//! HELPER FUNCTIONS
 function remplir(borderEl) {
     borderEl.classList.add("border-" + playerActu);
 }
@@ -78,8 +87,8 @@ function colorerCase(tile) {
 }
 
 function compterLesPoints(cases) {
-    let points = [];
-    for (let tile of cases) {
+    let points = [0, 0];
+    for (let tile of cases.flat()) {
         if (tile.appartenance >= 0) {
             points[tile.appartenance]++;
         }
@@ -93,4 +102,11 @@ function getNextJoueur() {
     playerActu = 1 - playerActu
     return playerActu;
 }
+function actualiserPoints() {
+    const points = compterLesPoints(tiles);
+    for (let [idx, el] of scoresElements.entries()) {
+        el.innerText = points[idx]
+    }
+}
 // TODO valider le tour ?
+
