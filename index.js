@@ -1,41 +1,71 @@
 const COLORS = ["red", "blue"]
+const CLASS_NAMES_PER_PLAYER = ["first", "second"];
+const CLASS_TAKEN = ["taken"];
 const n = 2;
 console.log(document.getElementById(`border-0-0-V`))
-// récupérer les cases
-// --------------
-let bordersV = [[0,0],[0,0]];
-let bordersH = [[0,0],[0,0]];
-let tiles = [0,0];
+
+let bordersV = [[0, 0], [0, 0]];
+let bordersH = [[0, 0], [0, 0]];
+let tiles = [[0, 0], [0, 0]];
+let playerActu = 0;
 for (let i = 0; i < n; i++) {
     for (let j = 0; j < n; j++) {
         bordersV[i][j] = document.getElementById(`border-${i}-${j}-V`);
         bordersH[i][j] = document.getElementById(`border-${i}-${j}-H`);
-        tiles[i][j] = { el: document.getElementById(`tile-${i}-${j}`), clicsH: [0, 0], clicsV: [0, 0], appartenance:-1 };
-        console.log(bordersH[i][j], document.getElementById(`border-${i}-${j}-V`), tiles)
-        bordersV[i][j].onclick = i == 0 ? () => { tiles[i][j].clicsV[1] = 1; checkRemplis(tiles, getNextJoueur()); } : () => {
-            tiles[i - 1][j].clicsV[1] = 1;
-            tiles[i][j].clicsV[1] = 1;
-            checkRemplis(tiles, getNextJoueur());
+        tiles[i][j] = { el: document.getElementById(`tile-${i}-${j}`), clicsH: [0, 0], clicsV: [0, 0], appartenance: -1 };
+        console.log(i + ", " + j);
 
+        if (i == 0) {
+            bordersV[i][j].onclick = () => {
+                tiles[i][j].clicsV[1] = 1;
+                remplir(bordersV[i][j]);
+                checkRemplis(tiles, getJoueurActu());
+                getNextJoueur();
+            }
+        } else {
+            bordersV[i][j].onclick = () => {
+                tiles[i - 1][j].clicsV[0] = 1;
+                tiles[i][j].clicsV[1] = 1;
+                remplir(bordersV[i][j]);
+                checkRemplis(tiles, getJoueurActu());
+                getNextJoueur();
+
+            }
         }
-            
-            bordersH[i][j].onclick = j==0 ? ()=>{tiles[i][j].clicsH[1] = 1; checkRemplis(tiles, getNextJoueur());} : () => {
-            tiles[i][j - 1].clicsH[1] = 1;
-            tiles[i][j].clicsH[1] = 1;
-            checkRemplis(tiles, getNextJoueur());
+
+        if (j == 0) {
+            bordersH[i][j].onclick = () => {
+                tiles[i][j].clicsH[1] = 1;
+                remplir(bordersH[i][j]);
+                checkRemplis(tiles, getJoueurActu());
+                getNextJoueur();
+            }
+        } else {
+            bordersH[i][j].onclick = () => {
+                tiles[i][j - 1].clicsH[0] = 1;
+                tiles[i][j].clicsH[1] = 1;
+                remplir(bordersH[i][j]);
+                checkRemplis(tiles, getJoueurActu());
+                getNextJoueur();
+            }
         }
-        
+
+
     }
 }
-document.onclick = (ev)=>{
+document.onclick = (ev) => {
 
 }
+
+function remplir(borderEl) {
+    borderEl.classList.add("border-" + playerActu);
+}
 //rajouter si côté déjà cliqué
-function checkFull(tile){
-    return tile.clicsV[0] == 1 && tile.clicsV[1] == 1 && tile.clicsH[0] == 1 && tile.clicsH[1] == 1; 
+function checkFull(tile) {
+    return tile.clicsV[0] == 1 && tile.clicsV[1] == 1 && tile.clicsH[0] == 1 && tile.clicsH[1] == 1;
 }
 function checkRemplis(cases, joueurActuel) {
-    for (let tile of cases) {
+    for (let tile of cases.flat()) {
         if (checkFull(tile)) {
             tile.appartenance = joueurActuel;
             colorerCase(tile)
@@ -44,7 +74,7 @@ function checkRemplis(cases, joueurActuel) {
 }
 
 function colorerCase(tile) {
-    tile.el.classList.add(tile.appartenance);
+    tile.el.classList.add(CLASS_NAMES_PER_PLAYER[tile.appartenance], CLASS_TAKEN);
 }
 
 function compterLesPoints(cases) {
@@ -56,9 +86,11 @@ function compterLesPoints(cases) {
     }
     return points;
 }
-let joueur = 0;
-function getNextJoueur(){
-    joueur = 1-joueur
-    return joueur;
+function getJoueurActu() {
+    return playerActu;
+}
+function getNextJoueur() {
+    playerActu = 1 - playerActu
+    return playerActu;
 }
 // TODO valider le tour ?

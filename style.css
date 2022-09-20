@@ -10,18 +10,38 @@
     height: 60vh;
     width: 60vh;
     display: grid;
-    grid-template-columns: 1fr 5fr 1fr 5fr;
-    grid-template-rows: 1fr 5fr 1fr 5fr;
+    grid-template-columns: 1fr 5fr 1fr 5fr 1fr;
+    grid-template-rows: 1fr 5fr 1fr 5fr 1fr;
 }
-.border {
+.border, .cross {
     background-color: black;
 }
 .h{
-    grid-column-end: span 2;
+    grid-column-end: span 1;
+}
+.last-h {
+    grid-column-end: span 1;
 }
 .v {
-    grid-row-end: span 2;
+    grid-row-end: span 1;
 }
+
 .tile {
-    background-color: steelblue;
+    background-color: brown;
+    opacity: 30%;
+}
+.border-0{
+    background-color: darkorange;
+}
+.border-1{
+    background-color: aqua;
+}
+.taken{
+    opacity: 80%;
+}
+.first{
+    background-color: crimson;
+}
+.second{
+    background-color:aquamarine;
 }
