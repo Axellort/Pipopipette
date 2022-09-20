@@ -1,0 +1,27 @@
+*{
+    box-sizing: border-box;
+    display: block;
+    margin: 0;
+    padding : 0;
+    background-color: antiquewhite;
+}
+.game {
+    position: relative;
+    height: 60vh;
+    width: 60vh;
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr 5fr;
+    grid-template-rows: 1fr 5fr 1fr 5fr;
+}
+.border {
+    background-color: black;
+}
+.h{
+    grid-column-end: span 2;
+}
+.v {
+    grid-row-end: span 2;
+}
+.tile {
+    background-color: steelblue;
+}
