@@ -7,3 +7,4 @@ Jeu Pipopipette en HTML
 3 Multijoueur 
 4 IA 
 5 Modes supplémentaires : temps, forme des cases, condition de victoire
+
