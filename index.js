@@ -1,24 +1,30 @@
+
+const n = 5;
+createDom(n);
 //! SETTING CONSTANTS 
 const COLORS = ["red", "blue"]
 const CLASS_NAMES_PER_PLAYER = ["first", "second"];
 const CLASS_TAKEN = ["taken"];
-const n = 2;
 
 //! GETTING ELEMENTS AND SETTING ONCLICKS
 const scoresElementsIds = ["first-score", "second-score"];
 const scoresElements = scoresElementsIds.map((id) => document.getElementById(id))
 
-let bordersV = [[0, 0], [0, 0], [0, 0]]; // TODO A MODIFIER, C'EST MOCHE COMME CA
-let bordersH = [[0, 0], [0, 0], [0, 0]];
-let tiles = [[0, 0], [0, 0]];
+let bordersV = []; // TODO A MODIFIER, C'EST MOCHE COMME CA
+let bordersH = [];
+let tiles = [];
 let playerActu = 0;
 for (let i = 0; i < n; i++) {
+    tiles.push([]);
+    bordersH.push([]);
+    bordersV.push([]);
     for (let j = 0; j < n; j++) {
+
         console.log(i + ", " + j);
 
-        tiles[i][j] = { el: document.getElementById(`tile-${i}-${j}`), clicsH: [0, 0], clicsV: [0, 0], appartenance: -1 };
-        bordersV[i][j] = document.getElementById(`border-${i}-${j}-V`);
-        bordersH[i][j] = document.getElementById(`border-${i}-${j}-H`);
+        tiles[i].push({ el: document.getElementById(`tile-${i}-${j}`), clicsH: [0, 0], clicsV: [0, 0], appartenance: -1 });
+        bordersV[i].push(document.getElementById(`border-${i}-${j}-V`));
+        bordersH[i].push(document.getElementById(`border-${i}-${j}-H`));
         setOnClick(bordersH[i][j], "h", i, j);
         setOnClick(bordersV[i][j], "v", i, j);
 
@@ -26,13 +32,14 @@ for (let i = 0; i < n; i++) {
 }
 
 let right = n;
+bordersV.push([]);
 for (let j = 0; j < n; j++) {
-    bordersV[right][j] = document.getElementById(`border-${right}-${j}-V`);
+    bordersV[right].push(document.getElementById(`border-${right}-${j}-V`));
     setOnClick(bordersV[right][j], "v", right, j);
 }
 let bottom = n;
 for (let i = 0; i < n; i++) {
-    bordersH[i][bottom] = document.getElementById(`border-${i}-${bottom}-H`);
+    bordersH[i].push(document.getElementById(`border-${i}-${bottom}-H`));
     setOnClick(bordersH[i][bottom], "h", i, bottom);
 }
 
