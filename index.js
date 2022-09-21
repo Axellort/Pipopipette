@@ -103,4 +103,5 @@ function actualiserPoints() {
     }
 }
 // TODO valider le tour ?
+// TODO ne pas changer le tour si nouvelle case remplie
 
