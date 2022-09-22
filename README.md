@@ -9,4 +9,4 @@ Jeu Pipopipette en HTML
 5 Modes supplémentaires : temps, forme des cases, condition de victoire
 
 
-Status : système pour deux joueurs marche, score et coloriage des cases, bémols : HTML pas généré automatiquement, bords extérieurs pas pris en compte
+Status : système pour deux joueurs marche, score et coloriage des cases

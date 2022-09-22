@@ -15,6 +15,7 @@
     display: grid;
     grid-template-columns: repeat(var(--n), 1fr 5fr) 1fr;
     grid-template-rows: repeat(var(--n), 1fr 5fr) 1fr;
+    margin: 3rem auto;
 }
 .border, .cross {
     background-color: black;
