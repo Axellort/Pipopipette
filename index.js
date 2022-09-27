@@ -49,8 +49,10 @@ function setOnClick(el, str, i, j) {
             if (i != n && j != n) { tiles[i][j].clicsV[0] = 1; }
             if (i != 0) { tiles[i - 1][j].clicsV[1] = 1; }
             remplir(bordersV[i][j]);
-            checkRemplis(tiles, getJoueurActu());
-            getNextJoueur();
+            let gotNewCases = checkRemplis(tiles, getJoueurActu());
+            if(!gotNewCases){
+                getNextJoueur();
+            }
             actualiserPoints();
         }
     } else if (str == "h") {
@@ -58,8 +60,10 @@ function setOnClick(el, str, i, j) {
             if (i != n && j != n) { tiles[i][j].clicsH[0] = 1; }
             if (j != 0) { tiles[i][j - 1].clicsH[1] = 1; }
             remplir(bordersH[i][j]);
-            checkRemplis(tiles, getJoueurActu());
-            getNextJoueur();
+            let gotNewCases = checkRemplis(tiles, getJoueurActu());
+            if(!gotNewCases){
+                getNextJoueur();
+            }
             actualiserPoints();
         }
     }
@@ -75,12 +79,15 @@ function checkFull(tile) {
     return tile.clicsV[0] == 1 && tile.clicsV[1] == 1 && tile.clicsH[0] == 1 && tile.clicsH[1] == 1;
 }
 function checkRemplis(cases, joueurActuel) {
+    let nouvellesCasesRemplies = false;
     for (let tile of cases.flat()) {
         if (checkFull(tile) && tile.appartenance == -1) {
             tile.appartenance = joueurActuel;
-            colorerCase(tile)
+            colorerCase(tile);
+            nouvellesCasesRemplies = true;
         }
     }
+    return nouvellesCasesRemplies;
 }
 
 function colorerCase(tile) {
