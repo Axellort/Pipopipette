@@ -1,5 +1,7 @@
 let socket = io();
-const n = 5;
+let ourId = -1;
+const n = 4;
+
 createDom(n);
 //! SETTING CONSTANTS 
 const COLORS = ["red", "blue"]
@@ -7,6 +9,7 @@ const CLASS_NAMES_PER_PLAYER = ["first", "second"];
 const CLASS_TAKEN = ["taken"];
 
 //! GETTING ELEMENTS AND SETTING ONCLICKS
+
 const scoresElementsIds = ["first-score", "second-score"];
 const scoresElements = scoresElementsIds.map((id) => document.getElementById(id))
 
@@ -14,74 +17,103 @@ let bordersV = []; // TODO A MODIFIER, C'EST MOCHE COMME CA
 let bordersH = [];
 let tiles = [];
 let playerActu = 0;
-for (let i = 0; i < n; i++) {
-    tiles.push([]);
-    bordersH.push([]);
+function initElements(n) {
+    bordersV = []; // TODO A MODIFIER, C'EST MOCHE COMME CA
+    bordersH = [];
+    tiles = [];
+    for (let i = 0; i < n; i++) {
+        tiles.push([]);
+        bordersH.push([]);
+        bordersV.push([]);
+        for (let j = 0; j < n; j++) {
+
+            console.log(i + ", " + j);
+
+            tiles[i].push({ el: document.getElementById(`tile-${i}-${j}`), clicsH: [0, 0], clicsV: [0, 0], appartenance: -1 });
+            bordersV[i].push({ el: document.getElementById(`border-${i}-${j}-V`), appartenance: -1 });
+            bordersH[i].push({ el: document.getElementById(`border-${i}-${j}-H`), appartenance: -1 });
+            setOnClick(i, j, "h");
+            setOnClick(i, j, "v");
+
+        }
+    }
+    let right = n;
     bordersV.push([]);
     for (let j = 0; j < n; j++) {
-
-        console.log(i + ", " + j);
-
-        tiles[i].push({ el: document.getElementById(`tile-${i}-${j}`), clicsH: [0, 0], clicsV: [0, 0], appartenance: -1 });
-        bordersV[i].push(document.getElementById(`border-${i}-${j}-V`));
-        bordersH[i].push(document.getElementById(`border-${i}-${j}-H`));
-        setOnClick(i, j, "h");
-        setOnClick(i, j, "v");
-
+        bordersV[right].push({ el: document.getElementById(`border-${i}-${j}-V`), appartenance: -1 });
+        setOnClick(right, j, "v");
+    }
+    let bottom = n;
+    for (let i = 0; i < n; i++) {
+        bordersH[i].push({ el: document.getElementById(`border-${i}-${j}-H`), appartenance: -1 });
+        setOnClick(i, bottom, "h");
     }
 }
 
-let right = n;
-bordersV.push([]);
-for (let j = 0; j < n; j++) {
-    bordersV[right].push(document.getElementById(`border-${right}-${j}-V`));
-    setOnClick(right, j, "v");
-}
-let bottom = n;
-for (let i = 0; i < n; i++) {
-    bordersH[i].push(document.getElementById(`border-${i}-${bottom}-H`));
-    setOnClick(i, bottom, "h");
-}
-
+socket.on("new-game", (n) => {
+    playerActu = 0;
+    clearGame();
+    createDom(n);
+    initElements(n);
+});
+socket.on("player-id", id => ourId = id);
 socket.on("click", (player, i, j, str) => onClick(player, i, j, str));
+
 function setOnClick(i, j, str) {
     const bordersBorder = str == "v" ? bordersV : bordersH;
-    bordersBorder[i][j].onclick = () => { console.log(`emit click ${i}-${j}`); socket.emit("click", i, j, str); }
+    bordersBorder[i][j].el.onclick = () => {
+        console.log(`emit click ${i}-${j}`);
+        socket.emit("click", ourId, i, j, str);
+    }
 
 }
 function onClick(player, i, j, str) {
-    el = str == "v" ? bordersV[i][j] : bordersH[i][j];
+    console.info(` Received Click from WS : player ${player}, playerActu ${playerActu}`);
+    if (player != playerActu) return;
+    border = str == "v" ? bordersV[i][j] : bordersH[i][j];
+    if (border.appartenance != -1) { return };
     if (str == "v") {
         if (i != n && j != n) { tiles[i][j].clicsV[0] = 1; }
         if (i != 0) { tiles[i - 1][j].clicsV[1] = 1; }
         remplir(bordersV[i][j], player);
-        checkRemplis(tiles, player);
+        let gotNewCases = checkRemplis(tiles, getJoueurActu());
+        if (!gotNewCases) {
+            getNextJoueur();
+        }
         actualiserPoints();
     } else if (str == "h") {
         if (i != n && j != n) { tiles[i][j].clicsH[0] = 1; }
         if (j != 0) { tiles[i][j - 1].clicsH[1] = 1; }
         remplir(bordersH[i][j], player);
-        checkRemplis(tiles, player);
+        let gotNewCases = checkRemplis(tiles, getJoueurActu());
+        if (!gotNewCases) {
+            getNextJoueur();
+        }
         actualiserPoints();
     }
+
 }
 
 
 //! HELPER FUNCTIONS
-function remplir(borderEl, player) {
-    borderEl.classList.add("border-" + player);
+function remplir(border, player) {
+    border.appartenance = player;
+    border.el.classList.add("border-" + player);
 }
 //rajouter si côté déjà cliqué
 function checkFull(tile) {
     return tile.clicsV[0] == 1 && tile.clicsV[1] == 1 && tile.clicsH[0] == 1 && tile.clicsH[1] == 1;
 }
 function checkRemplis(cases, joueurActuel) {
+    let nouvellesCasesRemplies = false;
     for (let tile of cases.flat()) {
         if (checkFull(tile) && tile.appartenance == -1) {
             tile.appartenance = joueurActuel;
-            colorerCase(tile)
+            colorerCase(tile);
+            nouvellesCasesRemplies = true;
         }
     }
+    return nouvellesCasesRemplies;
 }
 
 function colorerCase(tile) {
@@ -103,6 +135,13 @@ function actualiserPoints() {
     for (let [idx, el] of scoresElements.entries()) {
         el.innerText = points[idx]
     }
+}
+function getJoueurActu() {
+    return playerActu;
+}
+function getNextJoueur() {
+    playerActu = 1 - playerActu
+    return playerActu;
 }
 // TODO valider le tour ?
 // TODO ne pas changer le tour si nouvelle case remplie

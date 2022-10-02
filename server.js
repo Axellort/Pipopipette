@@ -7,7 +7,7 @@ const io = new Server(server);
 
 app.use(express.static("public"));
 
-const n = 7;
+const n = 5;
 let playerActu = 0;
 let playerGiven = 0;
 let nJoueurs = 2;
@@ -16,18 +16,17 @@ io.on('connection', (socket) => {
     playerGiven++;
     console.log("Connection");
 
-    io.emit('new-game', n);
+    socket.emit("player-id", playerForSocket);
+    if (playerGiven == 2) {
+        io.emit('new-game', n);
+    }
     // new game
-    socket.on('click', (i, j, str) => {
+    socket.on('click', (player, i, j, str) => {
         console.log("CLICK")
-        console.log(playerForSocket)
-        if (playerForSocket == playerActu) {
-            io.emit("click", playerForSocket, i, j, str);
-            playerActu++;
-            playerActu %= nJoueurs;
-        } else {
-            console.error("Tried to play but not your turn, player : " + playerForSocket);
-        }
+        console.log(player)
+        io.emit("click", player, i, j, str);
+        playerActu++;
+        playerActu %= nJoueurs;
     })
 })
 
