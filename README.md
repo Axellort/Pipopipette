@@ -18,3 +18,12 @@ Status : système pour deux joueurs marche, score et coloriage des cases,
         Où gérer les infos du multijoueur en WebSocket ?
         Comment implémenter un matchmaking ?
         Adam + Ax peuvent déjà se mettre sur l'algo / IA
+
+        Le Multijoueur : marche à deux joueurs en ligne, mais
+                besoin de seulement deux connections au websocket
+                TODO :  - afficher l'identifiant du joueur
+                        - montrer clairement la case jouée par l'adversaire
+                        - préciser le tour de qui c'est
+                        - bouton pour lancer une partie, qui redonne des ids et lance la game avec tous ceux connectés
+                        - merge avec le code normal pour les côtés qui appartiennent à une seule personne et pour le plus de 3 joueurs.
+                        
