@@ -49,3 +49,10 @@
 .second{
     background-color:aquamarine;
 }
+.my-player{
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 2rem;
+    height: 2rem;
+}
