@@ -65,17 +65,20 @@ function setOnClick(el, str, i, j) {
     if (str == "v") {
 //si je clique sur un élément je lance ce qu'il y a après
         el.onclick = () => {
-//si la case n'est pas une case sur les extrêmités
-            if (i != n && j != n) { tiles[i][j].clicsV[0] = 1; }
+//si le bord vertical n'est pas tout à droite alors j'ajoute 1 à la case de mm coordonée tiles(i,j).clicsV[0] =1
+            if (i != n ) { tiles[i][j].clicsV[0] = 1; }
+//si le bord vertical n'est pas tout à gauche alors j'ajoute 1 à la case située à gauche de mon bord
             if (i != 0) { tiles[i - 1][j].clicsV[1] = 1; }
+//je remplis mon bord avec la couleur
             remplir(bordersV[i][j]);
             checkRemplis(tiles, getJoueurActu());
             getNextJoueur();
             actualiserPoints();
         }
     } else if (str == "h") {
+// même chose que pour les bords verticaux mais horizontaux
         el.onclick = () => {
-            if (i != n && j != n) { tiles[i][j].clicsH[0] = 1; }
+            if ( j != n) { tiles[i][j].clicsH[0] = 1; }
             if (j != 0) { tiles[i][j - 1].clicsH[1] = 1; }
             remplir(bordersH[i][j]);
             checkRemplis(tiles, getJoueurActu());
@@ -86,11 +89,12 @@ function setOnClick(el, str, i, j) {
 }
 
 
-//! HELPER FUNCTIONS
+//fonction qui permet d'ajouter au nom de mon bord "border-0/1" pour le colorer dans le css
 function remplir(borderEl) {
     borderEl.classList.add("border-" + playerActu);
 }
-//rajouter si côté déjà cliqué
+
+// conditon que j'aurais pu mettre dans checkRemplis pour savoir si les 4 bords de la case sont colorés
 function checkFull(tile) {
     return tile.clicsV[0] == 1 && tile.clicsV[1] == 1 && tile.clicsH[0] == 1 && tile.clicsH[1] == 1;
 }
@@ -102,11 +106,12 @@ function checkRemplis(cases, joueurActuel) {
         }
     }
 }
-
+//fonction qui permet d'ajouter au nom dema case "first/second" et "taken" pour le colorer dans le css
 function colorerCase(tile) {
     tile.el.classList.add(CLASS_NAMES_PER_PLAYER[tile.appartenance], CLASS_TAKEN);
 }
 
+//fonction qui permet de compter les points dans une liste
 function compterLesPoints(cases) {
     let points = [0, 0];
     for (let tile of cases.flat()) {
