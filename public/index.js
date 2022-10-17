@@ -1,12 +1,11 @@
 let socket = io();
 let ourId = -1;
 let nb = 4;
+let nJoueurs = 2;
 
 createDom(nb);
 //! SETTING CONSTANTS 
-const COLORS = ["red", "blue"]
-const CLASS_NAMES_PER_PLAYER = ["first", "second"];
-const CLASS_TAKEN = ["taken"];
+const CLASS_TAKEN = "taken";
 
 //! GETTING ELEMENTS AND SETTING ONCLICKS
 
@@ -18,9 +17,10 @@ let bordersH = [];
 let tiles = [];
 let playerActu = 0;
 
-socket.on("new-game", (n) => {
+socket.on("new-game", (n, nPlayers) => {
     playerActu = 0;
     nb=n;
+    nJoueurs = nPlayers;
     clearGame();
     createDom(n);
     initElements(n);
@@ -28,7 +28,7 @@ socket.on("new-game", (n) => {
 socket.on("player-id", id => {ourId = id; setJoueurEl(ourId)});
 socket.on("click", (player, i, j, str) => onClick(player, i, j, str));
  
-
+socket.on("connect",()=>console.log("Weconnected"))
 function initElements(n) {
     bordersV = []; // TODO A MODIFIER, C'EST MOCHE COMME CA
     bordersH = [];
@@ -102,7 +102,7 @@ function onClick(player, i, j, str) {
 //! HELPER FUNCTIONS
 function remplir(border, player) {
     border.appartenance = player;
-    border.el.classList.add("border-" + player);
+    border.el.classList.add(getBorderClassName(player));
 }
 //rajouter si côté déjà cliqué
 function checkFull(tile) {
@@ -121,11 +121,11 @@ function checkRemplis(cases, joueurActuel) {
 }
 
 function colorerCase(tile) {
-    tile.el.classList.add(CLASS_NAMES_PER_PLAYER[tile.appartenance], CLASS_TAKEN);
+    tile.el.classList.add(getTileClassName(player), CLASS_TAKEN);
 }
 
 function compterLesPoints(cases) {
-    let points = [0, 0];
+    let points = [0, 0,0,0,0];
     for (let tile of cases.flat()) {
         if (tile.appartenance >= 0) {
             points[tile.appartenance]++;
@@ -144,11 +144,21 @@ function getJoueurActu() {
     return playerActu;
 }
 function getNextJoueur() {
-    playerActu = 1 - playerActu
+    playerActu++;
+    playerActu= playerActu % nJoueurs;
     return playerActu;
 }
-function setJoueurEl(joueur){
-    myPlayerEl.classList.add(CLASS_NAMES_PER_PLAYER[joueur]);
+function setJoueurEl(player){
+    myPlayerEl.classList.add(getIndicatorClass(player));
+}
+function getBorderClassName(player){
+    return "border-" + player;
+}
+function getTileClassName(player){
+    return "tile-" + player;
+}
+function getIndicatorClass(player){
+    return "indicator-" +player;
 }
 // TODO valider le tour ?
 // TODO ne pas changer le tour si nouvelle case remplie

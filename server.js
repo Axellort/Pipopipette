@@ -10,15 +10,15 @@ app.use(express.static("public"));
 const n = 5;
 let playerActu = 0;
 let playerGiven = 0;
-let nJoueurs = 2;
+let nJoueurs = 3;
 io.on('connection', (socket) => {
     const playerForSocket = playerGiven % nJoueurs;
     playerGiven++;
     console.log("Connection");
 
     socket.emit("player-id", playerForSocket);
-    if (playerGiven == 2) {
-        io.emit('new-game', n);
+    if (playerGiven == nJoueurs) {
+        io.emit('new-game', n, nJoueurs);
     }
     // new game
     socket.on('click', (player, i, j, str) => {
@@ -28,8 +28,8 @@ io.on('connection', (socket) => {
         playerActu++;
         playerActu %= nJoueurs;
     })
+    socket.on("disconnect",()=>{console.log("deconnection")})
 })
-
 
 
 

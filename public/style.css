@@ -34,21 +34,25 @@
     background-color: brown;
     opacity: 30%;
 }
-.border-0{
+.border-0, .indicator-0{
     background-color: darkorange;
 }
-.border-1{
+.border-1, .indicator-1{
     background-color: aqua;
+}
+.border-2, .indicator-2{
+    background-color: green;
 }
 .taken{
     opacity: 80%;
 }
-.first{
+.tile-0{
     background-color: crimson;
 }
-.second{
+.tile-1{
     background-color:aquamarine;
 }
+.tile-2 {background-color: limegreen;}
 .my-player{
     position: fixed;
     right: 0;
