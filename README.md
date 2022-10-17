@@ -2,7 +2,7 @@
 
 Jeu Pipopipette en HTML
 
-1 Un joueur, les cases se colorient bien ✅
+1 Un joueur, les cases se colorient bien ✅ \n
 2 Deux joueurs en local ✅
 2.5 Multijoueur en local  🟧 (on passe directement en pas local)
 3 Multijoueur ◻️ (bon pour 3, 4, 5 mais pas pour n)
