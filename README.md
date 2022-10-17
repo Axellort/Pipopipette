@@ -4,9 +4,9 @@ Jeu Pipopipette en HTML
 
 1 Un joueur, les cases se colorient bien ✅
 2 Deux joueurs en local ✅
-2.5 Multijoueur en local
-3 Multijoueur 
-3.1 Matchmaking
+2.5 Multijoueur en local  🟧 (on passe directement en pas local)
+3 Multijoueur ◻️ (bon pour 3, 4, 5 mais pas pour n)
+3.1 Matchmaking ◻️ (en cours)
 3.7 Mobile Support
 4 IA 
 5 Modes supplémentaires : temps, forme des cases, condition de victoire
