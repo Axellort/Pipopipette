@@ -19,16 +19,16 @@ let playerActu = 0;
 
 socket.on("new-game", (n, nPlayers) => {
     playerActu = 0;
-    nb=n;
+    nb = n;
     nJoueurs = nPlayers;
     clearGame();
     createDom(n);
     initElements(n);
 });
-socket.on("player-id", id => {ourId = id; setJoueurEl(ourId)});
+socket.on("player-id", id => { ourId = id; setJoueurEl(ourId) });
 socket.on("click", (player, i, j, str) => onClick(player, i, j, str));
- 
-socket.on("connect",()=>console.log("Weconnected"))
+
+socket.on("connect", () => console.log("Weconnected"))
 function initElements(n) {
     bordersV = []; // TODO A MODIFIER, C'EST MOCHE COMME CA
     bordersH = [];
@@ -121,11 +121,11 @@ function checkRemplis(cases, joueurActuel) {
 }
 
 function colorerCase(tile) {
-    tile.el.classList.add(getTileClassName(player), CLASS_TAKEN);
+    tile.el.classList.add(getTileClassName(tile.appartenance), CLASS_TAKEN);
 }
 
 function compterLesPoints(cases) {
-    let points = [0, 0,0,0,0];
+    let points = [0, 0, 0, 0, 0];
     for (let tile of cases.flat()) {
         if (tile.appartenance >= 0) {
             points[tile.appartenance]++;
@@ -145,20 +145,20 @@ function getJoueurActu() {
 }
 function getNextJoueur() {
     playerActu++;
-    playerActu= playerActu % nJoueurs;
+    playerActu = playerActu % nJoueurs;
     return playerActu;
 }
-function setJoueurEl(player){
+function setJoueurEl(player) {
     myPlayerEl.classList.add(getIndicatorClass(player));
 }
-function getBorderClassName(player){
+function getBorderClassName(player) {
     return "border-" + player;
 }
-function getTileClassName(player){
+function getTileClassName(player) {
     return "tile-" + player;
 }
-function getIndicatorClass(player){
-    return "indicator-" +player;
+function getIndicatorClass(player) {
+    return "indicator-" + player;
 }
 // TODO valider le tour ?
 // TODO ne pas changer le tour si nouvelle case remplie

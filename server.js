@@ -28,7 +28,7 @@ io.on('connection', (socket) => {
         playerActu++;
         playerActu %= nJoueurs;
     })
-    socket.on("disconnect",()=>{console.log("deconnection")})
+    socket.on("disconnect", () => { console.log("deconnection") })
 })
 
 
