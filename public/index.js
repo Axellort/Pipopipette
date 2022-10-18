@@ -12,6 +12,7 @@ const CLASS_TAKEN = "taken";
 const scoresElementsIds = ["first-score", "second-score"];
 const scoresElements = scoresElementsIds.map((id) => document.getElementById(id))
 const myPlayerEl = document.getElementById("my-player");
+const playerPlaying= document.getElementById("player-playing")
 let bordersV = []; // TODO A MODIFIER, C'EST MOCHE COMME CA
 let bordersH = [];
 let tiles = [];
@@ -141,9 +142,12 @@ function actualiserPoints() {
     }
 }
 function getJoueurActu() {
+   
     return playerActu;
 }
 function getNextJoueur() {
+    playerPlaying.classList.add(getIndicatorClass(playerActu)) 
+    playerPlaying.removeAttribute(getIndicatorClass((playerActu-1)%n))
     playerActu++;
     playerActu = playerActu % nJoueurs;
     return playerActu;
