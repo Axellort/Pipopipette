@@ -10,7 +10,7 @@ app.use(express.static("public"));
 const n = 5;
 let playerActu = 0;
 let playerGiven = 0;
-let nJoueurs = 3;
+let nJoueurs = 2;
 io.on('connection', (socket) => {
     console.log("Connection");
     let idOfSocket = '';

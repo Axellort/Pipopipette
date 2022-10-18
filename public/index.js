@@ -1,7 +1,7 @@
 let socket = io();
 let ourId = -1;
 let nb = 4;
-let nJoueurs = 2;
+let nJoueurs = 3;
 
 createDom(nb);
 //! SETTING CONSTANTS 
