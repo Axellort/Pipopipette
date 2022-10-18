@@ -9,7 +9,7 @@ app.use(express.static("public"));
 
 const n = 5;
 let playerActu = 0;
-let nJoueurs = 3;
+let nJoueurs = 2;
 let playerPerRoom = { default: 0 };
 io.on("connection", (socket) => {
   console.log("Connection");
@@ -17,6 +17,7 @@ io.on("connection", (socket) => {
   let idOfSocket = "default";
 
   socket.on("game-id", (id) => {
+    socket.leave(idOfSocket);
     idOfSocket = id;
     socket.join(id);
     manageGame(idOfSocket, socket, io);
@@ -34,6 +35,8 @@ server.listen(3000, () => {
 });
 
 function manageGame(id, socket, io) {
+  // pour éviter d'envoyer le clic à toutes mes anciennes rooms
+  socket.removeAllListeners("click", "disconnect");
   console.log(`manageGame with id : ${id}`);
   console.log(playerPerRoom[id]);
   console.log(socket.rooms);
@@ -47,9 +50,7 @@ function manageGame(id, socket, io) {
   }
   // new game
   socket.on("click", (player, i, j, str) => {
-    console.log("CLICK");
-    console.log(player);
-    console.log(socket.rooms);
+    console.log(`CLICK by player ${player} in rooms ${socket.rooms} and with id : ${id}`);
     io.sockets.in(id).emit("click", player, i, j, str);
     playerActu++;
     playerActu %= nJoueurs;
