@@ -27,8 +27,8 @@ io.on("connection", (socket) => {
   // TODO : comment gérer les ids ? + voir vidéo de WebDevSimplified
   // TODO : when connection, if number of players for an id is full, give to each socket a playerID et mettre tous les événements dans les bonnes rooms
 
-  socket.join(idOfSocket);
-  manageGame(idOfSocket, socket, io);
+  //socket.join(idOfSocket);
+  //manageGame(idOfSocket, socket, io);
 });
 
 server.listen(3000, () => {

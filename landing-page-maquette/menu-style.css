@@ -1,0 +1,76 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    --big-size : 2.2rem;
+    --small-size : 1.5rem;
+}
+
+h1.main-title{
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 20vh;
+}
+
+.container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 4px 4fr;
+    width: 50vw;
+    max-width: 800px;
+    left: 50%;
+    translate: -50%;
+    row-gap: 1rem;
+}
+.container > section {
+    justify-self: stretch;
+}
+.join {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.join-input {
+    width: 80%;
+    font-size: var(--big-size);
+    padding: 0.3rem;
+}
+.enter-game{
+    font-size: var(--big-size);
+}
+.divisor {
+    background-color: rgba(31, 40, 47, 0.5);
+}
+.create{
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.create-title {
+    width: 100%;
+    text-align: center;
+    font-size: var(--big-size);
+}
+.settings{
+    width: 100%;
+}
+
+.create-game, .enter-game{
+    
+    font-size: var(--big-size);
+    background-color: hsl(97, 81%, 54%);
+    border-radius: 5px;
+    padding: 0.3rem;
+}
+.create-game{
+    width: 100%;
+}
+
+.params{
+    font-size: var(--small-size);
+}

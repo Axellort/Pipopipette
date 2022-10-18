@@ -27,10 +27,14 @@ Status : système pour deux joueurs marche, score et coloriage des cases,
         Adam + Ax peuvent déjà se mettre sur l'algo / IA
 
         Le Multijoueur : marche à 2/3/4/5 joueurs en lignes
-                TODO :  - faire marcher pour n joueurs
-                        - afficher l'identifiant du joueur
-                        - montrer clairement la case jouée par l'adversaire
-                        - préciser le tour de qui c'est
-                        - bouton pour lancer une partie, qui redonne des ids et lance la game avec tous ceux connectés
-                        - merge avec le code normal pour les côtés qui appartiennent à une seule personne et pour le plus de 3 joueurs.
+                TODO :  - faire marcher pour n joueurs (TODO ( ADAM ? ))
+                        - afficher l'identifiant du joueur (ADAM)
+                        - montrer clairement la case jouée par l'adversaire (RETOUCHE GRAPHIQUE)
+                        - préciser le tour de qui c'est (ADAM)
+                        - bouton pour lancer une partie, qui redonne des ids et lance la game avec tous ceux connectés (TODO)
+                        - merge avec le code normal pour les côtés qui appartiennent à une seule personne et pour le plus de 3 joueurs (GIT WORK)
                         
+
+STATUS : on peut créer nos propres rooms sur le /menu (DONE)
+        mais j'ai du désactiver le "default", parce qu'en se connectant aux autres parties on passait dessus et yavait des merdes au niveau du nombre de joueurs (TO REPAIR)
+        on peut pas paramétrer sa partie pour l'instant (TODO)
