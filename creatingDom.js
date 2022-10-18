@@ -1,14 +1,17 @@
 function createDom(n) {
     let gameEl = document.getElementById("game");
     setNVariableCSS(n);
+// tous les éléments html qu'on met dans game
     let gameElements = [];
 
     for (let j = 0; j < n; j++) {
         gameElements = [...gameElements, ...generateBorderLine(j, n), ...generateTileLine(j, n)];
     }
     gameElements.push(...generateBorderLine(n, n));
+// je mets dans gameEl tous mes bords mes cases et mes petits carrés
     gameEl.append(...gameElements);
 }
+// je recommence une partie donc je supprime tout dans mon game pour ensuite createDom
 function clearGame() {
     document.getElementById("game").innerHTML = "";
 
