@@ -41,7 +41,8 @@ function manageGame(id, socket, io) {
   playerPerRoom[id] = playerForSocket + 1;
   socket.emit("player-id", playerForSocket);
 
-  if (playerForSocket == nJoueurs) {
+  if (playerForSocket + 1 == nJoueurs) {
+    console.log("emiited")
     io.sockets.in(id).emit("new-game", n, nJoueurs);
   }
   // new game
