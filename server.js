@@ -17,6 +17,7 @@ io.on("connection", (socket) => {
   let idOfSocket = "default";
 
   socket.on("game-id", (id) => {
+    if (!id) return;
     socket.leave(idOfSocket);
     idOfSocket = id;
     socket.join(id);
@@ -50,13 +51,13 @@ function manageGame(id, socket, io) {
   }
   // new game
   socket.on("click", (player, i, j, str) => {
-    console.log(`CLICK by player ${player} in rooms ${socket.rooms} and with id : ${id}`);
+    console.log(`CLICK by player ${player} in rooms ${new Array(...socket.rooms).join(", ")} and with id : ${id} `);
     io.sockets.in(id).emit("click", player, i, j, str);
     playerActu++;
     playerActu %= nJoueurs;
   });
   socket.on("disconnect", () => {
     console.log("deconnection");
-    console.log(`Disconnected from id : ${id}`);
+    console.log(`Disconnected from id: ${id} `);
   });
 }

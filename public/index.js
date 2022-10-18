@@ -1,3 +1,5 @@
+const urlParams = new URLSearchParams(window.location.search);
+const gameId = urlParams.get("game") ?? null;
 let socket = io();
 let ourId = -1;
 let nb = 4;
@@ -17,6 +19,9 @@ let bordersH = [];
 let tiles = [];
 let playerActu = 0;
 
+socket.emit("game-id", gameId)
+socket.on("connect", () => console.log("Weconnected"));
+socket.on("player-id", id => { ourId = id; setJoueurEl(ourId) });
 socket.on("new-game", (n, nPlayers) => {
     playerActu = 0;
     nb = n;
@@ -25,10 +30,8 @@ socket.on("new-game", (n, nPlayers) => {
     createDom(n);
     initElements(n);
 });
-socket.on("player-id", id => { ourId = id; setJoueurEl(ourId) });
 socket.on("click", (player, i, j, str) => onClick(player, i, j, str));
 
-socket.on("connect", () => console.log("Weconnected"))
 function initElements(n) {
     bordersV = []; // TODO A MODIFIER, C'EST MOCHE COMME CA
     bordersH = [];
