@@ -1,6 +1,9 @@
 # Pipopipette
 
-Jeu Pipopipette en HTML
+Jeu Pipopipette en HTML  
+EXTERNAL LINKS :  
+[Présentation 1](https://onedrive.live.com/edit.aspx?action=editnew&resid=1189E2882A3D290D!587&ithint=file%2cpptx&action=editnew&wdNewAndOpenCt=1666799397519&wdPreviousSession=5699109f-2c6b-49ea-ba15-67e150ef528d&wdOrigin=OFFICECOM-WEB.MAIN.NEW)  
+[Color Palette](https://coolors.co/253ee7-f55139-1a1423-faebd7-3ab795)  
 
 1 Un joueur, les cases se colorient bien ✅ 
 
