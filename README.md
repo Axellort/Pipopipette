@@ -24,9 +24,9 @@ EXTERNAL LINKS :
 
 Status : système pour deux joueurs marche, score et coloriage des cases,
         Rajouter plus de joueurs en local on skip
-        écran de sélection des modes par Adam
+        écran de sélection des modes par fait
         Où gérer les infos du multijoueur en WebSocket ? sur le client tout
-        Comment implémenter un matchmaking ? création de rooms en cours (voir Figma)
+        Comment implémenter un matchmaking ? création de rooms en cours 
         Adam + Ax peuvent déjà se mettre sur l'algo / IA
 
         Le Multijoueur : marche à 2/3/4/5 joueurs en lignes
@@ -35,9 +35,9 @@ Status : système pour deux joueurs marche, score et coloriage des cases,
                         - montrer clairement la case jouée par l'adversaire (RETOUCHE GRAPHIQUE)
                         - préciser le tour de qui c'est (ADAM)
                         - bouton pour lancer une partie, qui redonne des ids et lance la game avec tous ceux connectés (TODO)
-                        - merge avec le code normal pour les côtés qui appartiennent à une seule personne et pour le plus de 3 joueurs (GIT WORK)
-                        
+                        - gérer la déconnexion / reconnexion (TODO)
+                        - game /?game= qui serait comme une pixel war ?
 
-STATUS : on peut créer nos propres rooms sur le /menu (DONE)
-        mais j'ai du désactiver le "default", parce qu'en se connectant aux autres parties on passait dessus et yavait des merdes au niveau du nombre de joueurs (TO REPAIR)
+STATUS : on peut créer nos propres rooms sur le / (DONE)
         on peut pas paramétrer sa partie pour l'instant (TODO)
+        on peut pas se déconnecter / reconnecter (TODO)
