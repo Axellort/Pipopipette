@@ -9,5 +9,5 @@ joinGameBtn.onclick = () => {
 
 
 function goToGame(id) {
-    window.location.href = `/?game=${id}`;
+    window.location.href = `/game/?game=${id}`;
 }

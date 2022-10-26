@@ -19,6 +19,7 @@ body{
     --blue-accent : #253EE7;
     --contrast-color : #ffffff;
     --light-contrast-color: antiquewhite;
+    --cross-color : var(--light-contrast-color);
     --divisor-light : rgba(31, 40, 47, 0.5);
     
     --x-offset : -4px;
@@ -33,8 +34,8 @@ body.light{
     --red-accent : #F55139;
     --blue-accent : #253EE7;
     --contrast-color : black;
-    --light-contrast-color: black;
-
+    --light-contrast-color: #3AB795;
+    --cross-color : black;
     --divisor-light : black;
 
     color:var(--contrast-color);
@@ -93,7 +94,7 @@ h1.main-title.blue{
     margin: 3rem auto;
 }
 .cross {
-    background-color: var(--light-contrast-color);
+    background-color: var(--cross-color);
 }
 .border {
     background-color: var(--divisor-light);

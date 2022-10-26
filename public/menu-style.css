@@ -56,7 +56,7 @@ h1.main-title.red{
     left: 50%;
     color: var(--red-accent);
     translate: calc(-50% + var(--x-offset)) var(--y-offset);
-    animation: eloigne 2s ease-in-out forwards;
+    animation: eloigne 2s ease-in-out alternate infinite;
 }
 h1.main-title.blue{
     position: relative;

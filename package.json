@@ -20,6 +20,7 @@
   "dependencies": {
     "express": "^4.18.1",
     "http": "0.0.1-security",
+    "localtunnel": "^2.0.2",
     "nodemon": "^2.0.20",
     "socket.io": "^4.5.2"
   }
