@@ -2,12 +2,87 @@
     --n : 2
 }
 *{
-    box-sizing: border-box;
-    display: block;
     margin: 0;
-    padding : 0;
-    background-color: antiquewhite;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+
+    color:var(--contrast-color);
 }
+body{
+    --enormous-size : 8rem;
+    --big-size : 2.2rem;
+    --small-size : 1.5rem;
+    
+    --bg-color: #1A1423;
+    --red-accent : #F55139;
+    --blue-accent : #253EE7;
+    --contrast-color : #ffffff;
+    --light-contrast-color: antiquewhite;
+    --divisor-light : rgba(31, 40, 47, 0.5);
+    
+    --x-offset : -4px;
+    --y-offset : -15px;
+}
+body.light{
+    --enormous-size : 8rem;
+    --big-size : 2.2rem;
+    --small-size : 1.5rem;
+    
+    --bg-color: antiquewhite;
+    --red-accent : #F55139;
+    --blue-accent : #253EE7;
+    --contrast-color : black;
+    --light-contrast-color: black;
+
+    --divisor-light : black;
+
+    color:var(--contrast-color);
+}
+body{
+    background-color: var(--bg-color);
+}
+@keyframes eloigne{
+    0%{
+        translate: calc(-50% + -1 * var(--x-offset)) calc(-1 * var(--y-offset));
+        z-index: -1;
+    }
+    49%{
+        translate: calc(-50% ) calc(0);
+        z-index: -1;
+    }
+    50%{
+        translate: calc(-50% ) calc(0);
+        z-index: 0;
+    }
+    100%{
+        translate: calc(-50% + var(--x-offset)) var(--y-offset);
+    }
+}
+.title-container{
+    margin-bottom: 12.5vh;
+    margin-top: 2.5vh;
+    font-size: var(--big-size);
+    text-align: center;
+    position: relative;
+}
+h1.main-title{
+    font-size :var(--enormous-size);
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+h1.main-title.red{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    color: var(--red-accent);
+    translate: calc(-50% + var(--x-offset)) var(--y-offset);
+    animation: eloigne 2s ease-in-out forwards;
+}
+h1.main-title.blue{
+    position: relative;
+    color: var(--blue-accent);
+}
+
 .game {
     position: relative;
     height: 500px;
@@ -17,8 +92,11 @@
     grid-template-rows: repeat(var(--n), 1fr 5fr) 1fr;
     margin: 3rem auto;
 }
-.border, .cross {
-    background-color: black;
+.cross {
+    background-color: var(--light-contrast-color);
+}
+.border {
+    background-color: var(--divisor-light);
 }
 .h{
     grid-column-end: span 1;
@@ -31,31 +109,41 @@
 }
 
 .tile {
-    background-color: brown;
+    background-color: var(--bg-color);
     opacity: 30%;
 }
-.border-0, .indicator-0{
+.indicator-0{
     background-color: darkorange;
 }
-.border-1, .indicator-1{
+.indicator-1{
     background-color: aqua;
 }
-.border-2, .indicator-2{
+.indicator-2{
     background-color: green;
+}
+.border-0, .border-1, .border-2 {
+    background-color: var(--light-contrast-color);
 }
 .taken{
     opacity: 80%;
 }
 .tile-0{
-    background-color: crimson;
+    background-color: var(--red-accent);
 }
 .tile-1{
-    background-color:aquamarine;
+    background-color:var(--blue-accent);
 }
 .tile-2 {background-color: limegreen;}
 .my-player{
     position: fixed;
     right: 0;
+    top: 0;
+    width: 2rem;
+    height: 2rem;
+}
+.theme-selector {
+    position: fixed;
+    right: 2rem;
     top: 0;
     width: 2rem;
     height: 2rem;
