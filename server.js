@@ -41,7 +41,7 @@ function manageGame(id, socket, io) {
   console.log(`manageGame with id : ${id}`);
   console.log(playerPerRoom[id]);
   console.log(socket.rooms);
-  playerForSocket = playerPerRoom[id] ?? 0;
+  let playerForSocket = playerPerRoom[id] ?? 0;
   playerPerRoom[id] = playerForSocket + 1;
   socket.emit("player-id", playerForSocket);
 

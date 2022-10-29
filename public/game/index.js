@@ -32,9 +32,25 @@ socket.on("new-game", (n, nPlayers) => {
 });
 socket.on("click", (player, i, j, str) => onClick(player, i, j, str));
 
+/** 
+ * @typedef TileInfo
+ * @property {HTMLElement | null} el
+ * @property {number[]} clicsH
+ * @property {number[]} clicsV
+ * @property {number} appartenance
+ * 
+ */
+/**
+ * @typedef BorderInfo
+ * @property {HTMLElement| null} el
+ * @property {number} appartenance
+ */
 function initElements(n) {
-    bordersV = []; // TODO A MODIFIER, C'EST MOCHE COMME CA
+    /** @type BorderInfo[][] */
+    bordersV = [];
+    /** @type BorderInfo[][] */
     bordersH = [];
+    /** @type TileInfo[][] */
     tiles = [];
     for (let i = 0; i < n; i++) {
         tiles.push([]);
@@ -77,7 +93,7 @@ function setOnClick(i, j, str) {
 function onClick(player, i, j, str) {
     console.info(` Received Click from WS : player ${player}, playerActu ${playerActu}`);
     if (player != playerActu) return;
-    border = str == "v" ? bordersV[i][j] : bordersH[i][j];
+    let border = str == "v" ? bordersV[i][j] : bordersH[i][j];
     if (border.appartenance != -1) { return };
     if (str == "v") {
         if (i != nb && j != nb) { tiles[i][j].clicsV[0] = 1; }
@@ -140,7 +156,7 @@ function compterLesPoints(cases) {
 function actualiserPoints() {
     const points = compterLesPoints(tiles);
     for (let [idx, el] of scoresElements.entries()) {
-        el.innerText = points[idx]
+        el.innerText = points[idx].toString();
     }
 }
 function getJoueurActu() {
@@ -152,7 +168,7 @@ function getNextJoueur() {
     return playerActu;
 }
 function setJoueurEl(player) {
-    myPlayerEl.classList.add(getIndicatorClass(player));
+    myPlayerEl?.classList.add(getIndicatorClass(player));
 }
 function getBorderClassName(player) {
     return "border-" + player;
@@ -180,7 +196,7 @@ function createDom(n) {
         gameElements = [...gameElements, ...generateBorderLine(j, n), ...generateTileLine(j, n)];
     }
     gameElements.push(...generateBorderLine(n, n));
-    gameEl.append(...gameElements);
+    gameEl?.append(...gameElements);
 }
 function clearGame() {
     document.getElementById("game").innerHTML = "";
@@ -216,16 +232,23 @@ function generateCross() {
 }
 
 function generateBorderH(x, y) {
-    let borderH = document.createElement("div");
-    borderH.setAttribute("class", "h border");
-    borderH.setAttribute("id", `border-${x}-${y}-H`);
-    return borderH;
+    return generateBorder(x, y, "h");
+
 }
 function generateBorderV(x, y) {
-    let borderV = document.createElement("div");
-    borderV.setAttribute("class", "v border");
-    borderV.setAttribute("id", `border-${x}-${y}-V`);
-    return borderV;
+    return generateBorder(x, y, "v");
+}
+/**
+ * 
+ * @param {number} x 
+ * @param {number} y 
+ * @param {"v" | "h"} direction 
+ */
+function generateBorder(x, y, direction) {
+    let border = document.createElement("div");
+    border.classList.add(direction, "border");
+    border.id = `border-${x}-${y}-${direction.toUpperCase()}`;
+    return border;
 }
 function generateTile(x, y) {
     let tile = document.createElement("div");

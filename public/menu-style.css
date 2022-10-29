@@ -78,6 +78,9 @@ h1.main-title.blue{
 .container > section {
     justify-self: stretch;
 }
+.join-form{
+    display: contents;
+}
 .join {
     display: flex;
     flex-direction: row;
