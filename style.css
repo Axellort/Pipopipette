@@ -1,0 +1,51 @@
+:root{
+    --n : 2
+}
+*{
+    box-sizing: border-box;
+    display: block;
+    margin: 0;
+    padding : 0;
+    background-color: antiquewhite;
+}
+.game {
+    position: relative;
+    height: 500px;
+    width: 500px;
+    display: grid;
+    grid-template-columns: repeat(var(--n), 1fr 5fr) 1fr;
+    grid-template-rows: repeat(var(--n), 1fr 5fr) 1fr;
+    margin: 3rem auto;
+}
+.border, .cross {
+    background-color: black;
+}
+.h{
+    grid-column-end: span 1;
+}
+.last-h {
+    grid-column-end: span 1;
+}
+.v {
+    grid-row-end: span 1;
+}
+
+.tile {
+    background-color: brown;
+    opacity: 30%;
+}
+.border-0{
+    background-color: darkorange;
+}
+.border-1{
+    background-color: aqua;
+}
+.taken{
+    opacity: 80%;
+}
+.first{
+    background-color: crimson;
+}
+.second{
+    background-color:aquamarine;
+}
