@@ -9,6 +9,7 @@
     background-color: antiquewhite;
 }
 .game {
+    /* je crée une grille de 500*500 */
     position: relative;
     height: 500px;
     width: 500px;
@@ -17,23 +18,26 @@
     grid-template-rows: repeat(var(--n), 1fr 5fr) 1fr;
     margin: 3rem auto;
 }
+/* les bords et les carrés qui ont la class border et cross entre sont coloriés en noir */
 .border, .cross {
     background-color: black;
 }
+
 .h{
-    grid-column-end: span 1;
-}
-.last-h {
-    grid-column-end: span 1;
-}
-.v {
-    grid-row-end: span 1;
+    grid-column-end: auto;
 }
 
+.v {
+    grid-row-end: auto;
+}
+
+/*les cases sont coloriés en marron*/
 .tile {
     background-color: brown;
     opacity: 30%;
 }
+
+/*les bords auquel j'ai ajouté à leur classe border-0 sont coloriés */
 .border-0{
     background-color: darkorange;
 }
@@ -41,11 +45,11 @@
     background-color: aqua;
 }
 .taken{
-    opacity: 80%;
+    opacity: 30%;
 }
 .first{
-    background-color: crimson;
+    background-color: darkorange;
 }
 .second{
-    background-color:aquamarine;
+    background-color:aqua;
 }
