@@ -16,7 +16,7 @@ const CLASS_MY_TURN = "my-turn";
 const scoresElementsIds = ["first-score", "second-score"];
 const scoresElements = scoresElementsIds.map((id) => document.getElementById(id))
 const myPlayerEl = document.getElementById("my-player");
-let bordersV = []; // TODO A MODIFIER, C'EST MOCHE COMME CA
+let bordersV = []; 
 let bordersH = [];
 let tiles = [];
 let playerActu = 0;
@@ -49,15 +49,15 @@ socket.on("click", (player, i, j, str) => onClick(player, i, j, str));
  */
 function initElements(n) {
     /** @type BorderInfo[][] */
-    bordersV = [];
+    bordersV = Array(n);
     /** @type BorderInfo[][] */
-    bordersH = [];
+    bordersH = Array(n);
     /** @type TileInfo[][] */
-    tiles = [];
+    tiles = Array(n);
     for (let i = 0; i < n; i++) {
-        tiles.push([]);
-        bordersH.push([]);
-        bordersV.push([]);
+        tiles[i] = [];
+        bordersH[i] = [];
+        bordersV[i] = [];
         for (let j = 0; j < n; j++) {
 
             console.log(i + ", " + j);
@@ -127,7 +127,7 @@ function remplir(border, player) {
     setTimeout(() => border.el.classList.add(getBorderClassName(player)), 0)
 
 }
-//rajouter si côté déjà cliqué
+
 function checkFull(tile) {
     return tile.clicsV[0] == 1 && tile.clicsV[1] == 1 && tile.clicsH[0] == 1 && tile.clicsH[1] == 1;
 }
