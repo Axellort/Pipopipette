@@ -1,13 +1,15 @@
 const urlParams = new URLSearchParams(window.location.search);
 const gameId = urlParams.get("game") ?? null;
 let socket = io();
-let ourId = -1;
+let myPlayerId = -1;
 let nb = 4;
 let nJoueurs = 2;
-
 createDom(nb);
+
 //! SETTING CONSTANTS 
 const CLASS_TAKEN = "taken";
+const gameElement = document.getElementById("game");
+const CLASS_MY_TURN = "my-turn";
 
 //! GETTING ELEMENTS AND SETTING ONCLICKS
 
@@ -21,7 +23,7 @@ let playerActu = 0;
 
 socket.emit("game-id", gameId)
 socket.on("connect", () => console.log("Weconnected"));
-socket.on("player-id", id => { ourId = id; setJoueurEl(ourId) });
+socket.on("player-id", id => { myPlayerId = id; setJoueurEl(myPlayerId) });
 socket.on("new-game", (n, nPlayers) => {
     playerActu = 0;
     nb = n;
@@ -86,7 +88,7 @@ function setOnClick(i, j, str) {
     const bordersBorder = str == "v" ? bordersV : bordersH;
     bordersBorder[i][j].el.onclick = () => {
         console.log(`emit click ${i}-${j}`);
-        socket.emit("click", ourId, i, j, str);
+        socket.emit("click", myPlayerId, i, j, str);
     }
 
 }
@@ -121,7 +123,9 @@ function onClick(player, i, j, str) {
 //! HELPER FUNCTIONS
 function remplir(border, player) {
     border.appartenance = player;
-    border.el.classList.add(getBorderClassName(player));
+    border.el.classList.add("selected")
+    setTimeout(() => border.el.classList.add(getBorderClassName(player)), 0)
+
 }
 //rajouter si côté déjà cliqué
 function checkFull(tile) {
@@ -165,7 +169,15 @@ function getJoueurActu() {
 function getNextJoueur() {
     playerActu++;
     playerActu = playerActu % nJoueurs;
+    changerStyleGameEl(playerActu, myPlayerId);
     return playerActu;
+}
+function changerStyleGameEl(actu, our) {
+    if (actu == our) {
+        gameElement?.classList.add(CLASS_MY_TURN);
+    } else {
+        gameElement?.classList.remove(CLASS_MY_TURN);
+    }
 }
 function setJoueurEl(player) {
     myPlayerEl?.classList.add(getIndicatorClass(player));

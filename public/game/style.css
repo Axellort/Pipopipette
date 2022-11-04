@@ -10,6 +10,7 @@
     color:var(--contrast-color);
 }
 body{
+    overflow: hidden;
     --enormous-size : 8rem;
     --big-size : 2.2rem;
     --small-size : 1.5rem;
@@ -24,6 +25,32 @@ body{
     
     --x-offset : -4px;
     --y-offset : -15px;
+    --collapse-time : .5s;
+   
+}
+.selected::after {
+    z-index: 5;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200vmax;
+    height: 200vmax;
+    translate : -50% -50%;
+    border-radius: 100%;
+    background-image: radial-gradient(rgba(255,255,255,0.5) 9%, transparent 9%);
+    background-size: 8vmin 8vmin;
+    background-color: transparent;
+    animation: collapseAnimation var(--collapse-time) ease-out forwards;
+}
+@keyframes collapseAnimation {
+    0%{
+        scale: 1 1;
+    }
+    100%{
+        scale: 0 0;
+    }
 }
 body.light{
     --enormous-size : 8rem;
@@ -92,12 +119,22 @@ h1.main-title.blue{
     grid-template-columns: repeat(var(--n), 1fr 5fr) 1fr;
     grid-template-rows: repeat(var(--n), 1fr 5fr) 1fr;
     margin: 3rem auto;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    transition: all var(--collapse-time) ease-in-out;
+}
+.game > * {
+    position: relative;
+}
+.game.my-turn {
+   box-shadow: 0px 0px 23px 10px rgba(255,255,255,0.92) ;
 }
 .cross {
     background-color: var(--cross-color);
 }
 .border {
     background-color: var(--divisor-light);
+    transition: all var(--collapse-time);
+    transition-delay: var(--collapse-time);
 }
 .h{
     grid-column-end: span 1;
@@ -112,6 +149,8 @@ h1.main-title.blue{
 .tile {
     background-color: var(--bg-color);
     opacity: 30%;
+    transition: all var(--collapse-time);
+    transition-delay: var(--collapse-time);
 }
 .indicator-0{
     background-color: darkorange;
