@@ -1,0 +1,19 @@
+{
+  "name": "minimax",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "compile": "tsc minimaxTest.ts",
+    "start": "npm run compile && node main.js",
+    "test": "npm run compile && node minimaxTest.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.3",
+    "@types/node": "^18.11.9",
+    "tslib": "^2.4.1",
+    "typescript": "^4.8.4"
+  }
+}
