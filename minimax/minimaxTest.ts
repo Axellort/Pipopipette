@@ -1,5 +1,4 @@
-import { Bord, Tile, Board, miniMax, findExtrem } from "./main";
-
+import { Bord, Tile, Board, miniMax, findExtrem, Identifier } from "./main";
 console.log("find extrem test")
 
 /*
@@ -18,8 +17,10 @@ for (let i = 0; i < 2; i++) {
 
 console.log(findExtrem(map, true)); WORKS ( I THINK )
 */
-let n = 1;
-let maxDepth = 4;
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+let n = 3;
+let maxDepth = 3;
+
 let bords: Bord[][][] = [Array(), Array()];
 let tiles: Tile[][] = Array();
 for (let i = 0; i <= n; i++) {
@@ -27,14 +28,28 @@ for (let i = 0; i <= n; i++) {
     bords[1][i] = Array();
     if (i != n) tiles[i] = Array(n);
     for (let j = 0; j <= n; j++) {
-        if (i != n) bords[0][i][j] = { appartenance: -1, id: { dir: 0, x: i, y: j } };
-        if (j != n) bords[1][i][j] = { appartenance: -1, id: { dir: 1, x: i, y: j } };
+        if (i != n) bords[0][i][j] = { appartenance: randSplit(3) - 1, id: { dir: 0, x: i, y: j } };
+        if (j != n) bords[1][i][j] = { appartenance: randSplit(3) - 1, id: { dir: 1, x: i, y: j } };
         if (i != n && j != n) tiles[i][j] = { appartenance: -1, x: i, y: j };
     }
 }
-console.log(JSON.stringify(bords, null, 2));
-
 let board = new Board(n, bords, tiles, false);
-//console.log(JSON.stringify(board.jouer({ dir: 0, x: 0, y: 4 })))
-//console.log(board.playerNb)
-console.log(miniMax(board, 4));
+for (let tile of board.tiles.flat()) {
+    if (board.checkFull(tile)) {
+        tile.appartenance = randSplit(2)
+    }
+}
+console.log(JSON.stringify(board, null, 2));
+console.log("---------------------------------------")
+console.time("minimax")
+console.log(JSON.stringify(miniMax(board, maxDepth), null, 2))
+console.timeEnd("minimax")
+
+function randSplit(n: number): number {
+    const rand = Math.random();
+    let dx = 1 / n;
+    for (let i = 0; i < n; i++) {
+        if (rand < (i + 1) * dx) return i;
+    }
+    return n;
+}

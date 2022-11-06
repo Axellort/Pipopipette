@@ -18,8 +18,9 @@ for (let i = 0; i < 2; i++) {
 
 console.log(findExtrem(map, true)); WORKS ( I THINK )
 */
-var n = 1;
-var maxDepth = 4;
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+var n = 3;
+var maxDepth = 3;
 var bords = [Array(), Array()];
 var tiles = Array();
 for (var i = 0; i <= n; i++) {
@@ -30,15 +31,32 @@ for (var i = 0; i <= n; i++) {
         tiles[i] = Array(n);
     for (var j = 0; j <= n; j++) {
         if (i != n)
-            bords[0][i][j] = { appartenance: -1, id: { dir: 0, x: i, y: j } };
+            bords[0][i][j] = { appartenance: randSplit(3) - 1, id: { dir: 0, x: i, y: j } };
         if (j != n)
-            bords[1][i][j] = { appartenance: -1, id: { dir: 1, x: i, y: j } };
+            bords[1][i][j] = { appartenance: randSplit(3) - 1, id: { dir: 1, x: i, y: j } };
         if (i != n && j != n)
             tiles[i][j] = { appartenance: -1, x: i, y: j };
     }
 }
-console.log(JSON.stringify(bords, null, 2));
 var board = new main_1.Board(n, bords, tiles, false);
-//console.log(JSON.stringify(board.jouer({ dir: 0, x: 0, y: 4 })))
-//console.log(board.playerNb)
-console.log((0, main_1.miniMax)(board, 4));
+for (var _i = 0, _a = board.tiles.flat(); _i < _a.length; _i++) {
+    var tile = _a[_i];
+    if (board.checkFull(tile)) {
+        tile.appartenance = randSplit(2);
+    }
+}
+console.log(JSON.stringify(board, null, 2));
+console.log("---------------------------------------");
+console.time("minimax");
+console.log(JSON.stringify((0, main_1.miniMax)(board, maxDepth), null, 2));
+console.timeEnd("minimax");
+function randSplit(n) {
+    var rand = Math.random();
+    var dx = 1 / n;
+    for (var i = 0; i < n; i++) {
+        if (rand < (i + 1) * dx)
+            return i;
+    }
+    return n;
+}
+console.log(randSplit(3), randSplit(3), randSplit(3), randSplit(3), randSplit(3));

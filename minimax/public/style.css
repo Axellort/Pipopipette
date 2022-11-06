@@ -1,0 +1,190 @@
+:root{
+    --n : 2
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+
+    color:var(--contrast-color);
+}
+body{
+    overflow: hidden;
+    --enormous-size : 8rem;
+    --big-size : 2.2rem;
+    --small-size : 1.5rem;
+    
+    --bg-color: #1A1423;
+    --red-accent : #F55139;
+    --blue-accent : #253EE7;
+    --contrast-color : #ffffff;
+    --light-contrast-color: antiquewhite;
+    --cross-color : var(--light-contrast-color);
+    --divisor-light : rgba(31, 40, 47, 0.5);
+    
+    --x-offset : -4px;
+    --y-offset : -15px;
+    --collapse-time : .5s;
+   
+}
+.selected::after {
+    z-index: 5;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200vmax;
+    height: 200vmax;
+    translate : -50% -50%;
+    border-radius: 100%;
+    background-image: radial-gradient(rgba(255,255,255,0.5) 9%, transparent 9%);
+    background-size: 8vmin 8vmin;
+    background-color: transparent;
+    animation: collapseAnimation var(--collapse-time) ease-out forwards;
+}
+@keyframes collapseAnimation {
+    0%{
+        scale: 1 1;
+    }
+    100%{
+        scale: 0 0;
+    }
+}
+body.light{
+    --enormous-size : 8rem;
+    --big-size : 2.2rem;
+    --small-size : 1.5rem;
+    
+    --bg-color: antiquewhite;
+    --red-accent : #F55139;
+    --blue-accent : #253EE7;
+    --contrast-color : black;
+    --light-contrast-color: #3AB795;
+    --cross-color : black;
+    --divisor-light : black;
+
+    color:var(--contrast-color);
+}
+body{
+    background-color: var(--bg-color);
+}
+@keyframes eloigne{
+    0%{
+        translate: calc(-50% + -1 * var(--x-offset)) calc(-1 * var(--y-offset));
+        z-index: -1;
+    }
+    49%{
+        translate: calc(-50% ) calc(0);
+        z-index: -1;
+    }
+    50%{
+        translate: calc(-50% ) calc(0);
+        z-index: 0;
+    }
+    100%{
+        translate: calc(-50% + var(--x-offset)) var(--y-offset);
+    }
+}
+.title-container{
+    margin-bottom: 12.5vh;
+    margin-top: 2.5vh;
+    font-size: var(--big-size);
+    text-align: center;
+    position: relative;
+}
+h1.main-title{
+    font-size :var(--enormous-size);
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+h1.main-title.red{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    color: var(--red-accent);
+    translate: calc(-50% + var(--x-offset)) var(--y-offset);
+    animation: eloigne 2s ease-in-out forwards;
+}
+h1.main-title.blue{
+    position: relative;
+    color: var(--blue-accent);
+}
+
+.game {
+    position: relative;
+    height: 500px;
+    width: 500px;
+    display: grid;
+    grid-template-columns: repeat(var(--n), 1fr 5fr) 1fr;
+    grid-template-rows: repeat(var(--n), 1fr 5fr) 1fr;
+    margin: 3rem auto;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    transition: all var(--collapse-time) ease-in-out;
+}
+.game > * {
+    position: relative;
+}
+.game.my-turn {
+   box-shadow: 0px 0px 23px 10px rgba(255,255,255,0.92) ;
+}
+.cross {
+    background-color: var(--cross-color);
+}
+.border {
+    background-color: var(--divisor-light);
+    transition: all var(--collapse-time);
+    transition-delay: var(--collapse-time);
+}
+.h{
+    grid-column-end: span 1;
+}
+.last-h {
+    grid-column-end: span 1;
+}
+.v {
+    grid-row-end: span 1;
+}
+
+.tile {
+    background-color: var(--bg-color);
+    opacity: 30%;
+    transition: all var(--collapse-time);
+    transition-delay: var(--collapse-time);
+}
+.indicator-0{
+    background-color: darkorange;
+}
+.indicator-1{
+    background-color: aqua;
+}
+.indicator-2{
+    background-color: green;
+}
+.border-0, .border-1, .border-2 {
+    background-color: var(--light-contrast-color);
+}
+.taken{
+    opacity: 80%;
+}
+.tile-0{
+    background-color: var(--red-accent);
+}
+.tile-1{
+    background-color:var(--blue-accent);
+}
+.tile-2 {background-color: limegreen;}
+.my-player{
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 2rem;
+    height: 2rem;
+}
+.theme-selector {
+    position: fixed;
+    right: 2rem;
+    top: 0;
+    width: 2rem;
+    height: 2rem;
+}
