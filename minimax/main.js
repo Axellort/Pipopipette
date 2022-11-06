@@ -14,16 +14,17 @@ console.log("Hello from TypeScript");
 var MAX_DEPTH = 3;
 var i = 0;
 var Board = /** @class */ (function () {
-    function Board(n, bords, tiles, isMin) {
+    function Board(n, bords, tiles, playerNb) {
         if (n === void 0) { n = 0; }
         if (bords === void 0) { bords = []; }
         if (tiles === void 0) { tiles = []; }
-        if (isMin === void 0) { isMin = false; }
-        console.log("Constructor new Board ------------------------------------------------------------------ ".concat(i));
+        if (playerNb === void 0) { playerNb = false; }
+        if (i % 1 == 0)
+            console.log("Constructor new Board ------------------------------------------------------------------ ".concat(i));
         i++;
         this.n = n;
         this.bords = bords;
-        this.isMin = isMin;
+        this.playerNb = playerNb;
         this.tiles = this.generateTiles(tiles);
         this.scores = this.setScores();
     }
@@ -35,7 +36,7 @@ var Board = /** @class */ (function () {
             for (var j = 0; j < this.n; j++) {
                 var tile = tiles[i_1][j];
                 newTiles[i_1][j] = tile;
-                if (this.checkFull(tile) && tile.appartenance == -1) {
+                if (tile.appartenance == -1 && this.checkFull(tile)) {
                     newTiles[i_1][j].appartenance = this.getJoueurActu();
                 }
             }
@@ -48,10 +49,10 @@ var Board = /** @class */ (function () {
         var x = tile.x, y = tile.y, appartenance = tile.appartenance;
         if (appartenance != -1)
             throw "should not have an appartenance";
-        return (this.bords[1][x][y].appartenance != -1) && (x < this.n - 1 ? this.bords[1][x + 1][y].appartenance != -1 : true) && (this.bords[0][x][y].appartenance != -1) && (y < this.n - 1 ? this.bords[0][x][y + 1].appartenance != -1 : true);
+        return (this.bords[1][x][y].appartenance != -1) && (x < this.n ? this.bords[1][x + 1][y].appartenance != -1 : true) && (this.bords[0][x][y].appartenance != -1) && (y < this.n ? this.bords[0][x][y + 1].appartenance != -1 : true);
     };
     Board.prototype.getJoueurActu = function () {
-        return Number(this.isMin);
+        return Number(this.playerNb);
     };
     Board.prototype.setScores = function () {
         // TODO récupérer la fonction de Pipopipette pour compter les points
@@ -64,10 +65,10 @@ var Board = /** @class */ (function () {
         }
         return [points[0], points[1]];
     };
-    Board.prototype.jouer = function (bord) {
+    Board.prototype.jouer = function (bordId) {
         var newBords = JSON.parse(JSON.stringify(this.bords));
-        newBords[bord.id.dir][bord.id.x][bord.id.y].appartenance = this.getJoueurActu();
-        return new Board(this.n, newBords, this.tiles, !this.isMin);
+        newBords[bordId.dir][bordId.x][bordId.y].appartenance = this.getJoueurActu();
+        return new Board(this.n, newBords, this.tiles, !this.playerNb);
     };
     Board.prototype.coordonnes = function (idx) {
         var x = idx % this.n;
@@ -75,35 +76,42 @@ var Board = /** @class */ (function () {
         return { x: x, y: y, dir: 0 };
     };
     Board.prototype.bordsLibres = function () {
-        return this.bords.flat(2).filter(function (bord) { return bord.appartenance = -1; });
+        return this.bords.flat(2).filter(function (bord) { return bord.appartenance == -1; });
     };
     return Board;
 }());
 exports.Board = Board;
-function miniMax(board, depth) {
+function miniMax(board, maxDepth, depth) {
+    if (depth === void 0) { depth = 0; }
     var valeurs = new Map();
-    if (depth == MAX_DEPTH) {
+    if (depth == maxDepth) {
         return { coups: [], value: evaluer(board) };
     }
     var score = board.scores;
+    console.log(score);
     if (score[0] > Math.pow(board.n, 2) / 2)
         return { coups: [], value: Infinity };
     if (score[1] > Math.pow(board.n, 2) / 2)
         return { coups: [], value: -Infinity };
+    //if (depth == 1) console.log(depth, board.bords.flat(2).map((bord) => bord.appartenance));
     for (var _i = 0, _a = board.bordsLibres(); _i < _a.length; _i++) {
         var bordLibre = _a[_i];
-        valeurs.set(bordLibre, miniMax(board.jouer(bordLibre), depth + 1));
+        valeurs.set(bordLibre, miniMax(board.jouer(bordLibre.id), maxDepth, depth + 1));
     }
-    return findExtrem(valeurs, board.isMin);
+    return findExtrem(valeurs, board.playerNb);
 }
 exports.miniMax = miniMax;
 function evaluer(board) {
+    //if (i == 160000) { console.log(JSON.stringify(board.tiles.flat().map((ti) => ti.appartenance))); console.log(JSON.stringify(board.bords.map((l) => (l.map((ll) => (ll.map((lll) => lll.appartenance))))), null, 4)) }
+    console.log(board.scores[0], board.scores[1]);
     return board.scores[0] - board.scores[1];
 }
 // * has been tested, should work
-function findExtrem(map, isMin) {
-    var signe = 1 - Number(isMin) * 2;
+function findExtrem(map, playerNb) {
+    var signe = -(Number(playerNb) * 2 - 1); // si 0->1; 1->-1
+    //console.log(signe);
     var meilleurPath = { coups: [], value: -signe * Infinity };
+    //console.log(meilleurPath);
     var meilleurIdentifier = { dir: 0, x: -1, y: -1 };
     for (var _i = 0, _a = Array.from(map.entries()); _i < _a.length; _i++) {
         var _b = _a[_i], bordChoisi = _b[0], pathChoisi = _b[1];
