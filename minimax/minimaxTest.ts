@@ -19,7 +19,7 @@ console.log(findExtrem(map, true)); WORKS ( I THINK )
 */
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 let n = 3;
-let maxDepth = 3;
+let maxDepth = 2;
 
 let bords: Bord[][][] = [Array(), Array()];
 let tiles: Tile[][] = Array();
@@ -40,7 +40,7 @@ for (let tile of board.tiles.flat()) {
     }
 }
 console.log(JSON.stringify(board, null, 2));
-console.log("---------------------------------------")
+console.log("----------------------------------------------------------------------------")
 console.time("minimax")
 console.log(JSON.stringify(miniMax(board, maxDepth), null, 2))
 console.timeEnd("minimax")

@@ -11,6 +11,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 exports.__esModule = true;
 exports.findExtrem = exports.miniMax = exports.Board = void 0;
 var lodash_1 = require("lodash");
+// TODO prendre en compte qu'on rejoue... 
 var MAX_NUMBER = 100000;
 console.log("Hello from TypeScript");
 var MAX_DEPTH = 3;

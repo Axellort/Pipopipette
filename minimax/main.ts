@@ -1,7 +1,7 @@
 import { SocketAddress } from "net";
 import { cloneDeep } from "lodash";
 
-// TODO prender en compte qu'on rejoue... 
+// TODO prendre en compte qu'on rejoue... 
 
 const MAX_NUMBER = 100000;
 console.log("Hello from TypeScript")

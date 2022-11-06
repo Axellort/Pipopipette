@@ -20,7 +20,7 @@ console.log(findExtrem(map, true)); WORKS ( I THINK )
 */
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 var n = 3;
-var maxDepth = 3;
+var maxDepth = 2;
 var bords = [Array(), Array()];
 var tiles = Array();
 for (var i = 0; i <= n; i++) {
@@ -46,7 +46,7 @@ for (var _i = 0, _a = board.tiles.flat(); _i < _a.length; _i++) {
     }
 }
 console.log(JSON.stringify(board, null, 2));
-console.log("---------------------------------------");
+console.log("----------------------------------------------------------------------------");
 console.time("minimax");
 console.log(JSON.stringify((0, main_1.miniMax)(board, maxDepth), null, 2));
 console.timeEnd("minimax");
@@ -59,4 +59,3 @@ function randSplit(n) {
     }
     return n;
 }
-console.log(randSplit(3), randSplit(3), randSplit(3), randSplit(3), randSplit(3));
