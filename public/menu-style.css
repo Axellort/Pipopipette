@@ -78,7 +78,7 @@ h1.main-title.blue{
 .container > section {
     justify-self: stretch;
 }
-.join-form{
+.form{
     display: contents;
 }
 .join {
@@ -133,6 +133,7 @@ h1.main-title.blue{
     align-items: center;
     justify-content: center;
     font-size: var(--small-size);
+    background-color: transparent;
 }
 .create-game, .enter-game{
     

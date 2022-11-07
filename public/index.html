@@ -23,22 +23,25 @@
 
     <div class="container">
         <section class="join">
-            <form action="" class="join-form" id="join-form" autocomplete="off">
+            <form action="" class="join-form form" id="join-form" autocomplete="off">
                 <input type="text" class="join-input" id="join-input" placeholder="Join a Game (copy link or ID)">
                 <input type="submit" class="enter-game" id="join-btn" value="⭐">
-
             </form>
         </section>
         <div class="divisor"></div>
-        <section class="create">
-            <h4 class="create-title">Or create one : </h4>
-            <div class="settings">
-                <p class="params">Player count : </p><span class="choice" id="player-count">8</span>
-                <p class="params">Bot fill : </p><span class="choice" id="bot-fill">OFF</span>
-                <p class="params"> Game mode : </p><span class="choice" id="game-mode"> Classic</span>
-            </div>
-        </section>
-        <button class="create-game" id="create-btn">Create Game ⭐</button>
+        <form action="" class="create-form form" id="create-form" autocomplete="off">
+            <section class="create">
+                <h4 class="create-title">Or create one : </h4>
+                <div class="settings">
+                    <p class="params">Player count : </p><input placeholder="2" class="choice" id="player-count"
+                        maxlength="2" inputmode="numeric" type="text">
+                    <p class="params">Local ? </p><input type="checkbox" class="choice" id="connection-mode">
+                    <p class="params">Bot fill : </p><span class="choice" id="bot-fill">OFF</span>
+                    <p class="params"> Game mode : </p><span class="choice" id="game-mode"> Classic</span>
+                </div>
+            </section>
+            <button type="submit" class="create-game" id="create-btn">Create Game ⭐</button>
+        </form>
     </div>
 
 
