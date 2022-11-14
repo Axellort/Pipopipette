@@ -1,50 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pipopipette</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="menu-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="menu-style.css" />
     <script defer src="menu-main.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="title-container">
-        <h1 class="main-title blue">Pipopipette</h1>
-        <h1 class="main-title red">Pipopipette</h1>
+      <h1 class="main-title blue">Pipopipette</h1>
+      <h1 class="main-title red">Pipopipette</h1>
     </div>
-
 
     <div class="container">
-        <section class="join">
-            <form action="" class="join-form form" id="join-form" autocomplete="off">
-                <input type="text" class="join-input" id="join-input" placeholder="Join a Game (copy link or ID)">
-                <input type="submit" class="enter-game" id="join-btn" value="⭐">
-            </form>
-        </section>
-        <div class="divisor"></div>
-        <form action="" class="create-form form" id="create-form" autocomplete="off">
-            <section class="create">
-                <h4 class="create-title">Or create one : </h4>
-                <div class="settings">
-                    <p class="params">Player count : </p><input placeholder="2" class="choice" id="player-count"
-                        maxlength="2" inputmode="numeric" type="text">
-                    <p class="params">Local ? </p><input type="checkbox" class="choice" id="connection-mode">
-                    <p class="params">Bot fill : </p><span class="choice" id="bot-fill">OFF</span>
-                    <p class="params"> Game mode : </p><span class="choice" id="game-mode"> Classic</span>
-                </div>
-            </section>
-            <button type="submit" class="create-game" id="create-btn">Create Game ⭐</button>
+      <section class="join">
+        <form
+          action=""
+          class="join-form form"
+          id="join-form"
+          autocomplete="off"
+        >
+          <input
+            type="text"
+            class="join-input"
+            id="join-input"
+            placeholder="Join a Game (copy link or ID)"
+          />
+          <input type="submit" class="enter-game" id="join-btn" value="⭐" />
         </form>
+      </section>
+      <div class="divisor"></div>
+      <form
+        action=""
+        class="create-form form"
+        id="create-form"
+        autocomplete="off"
+      >
+        <section class="create">
+          <h4 class="create-title">Or create one :</h4>
+          <div class="settings">
+            <p class="params">Player count :</p>
+            <input
+              placeholder="2"
+              class="choice"
+              id="player-count"
+              maxlength="2"
+              inputmode="numeric"
+              type="text"
+            />
+            <p class="params">Grid size :</p>
+            <input
+              placeholder="5"
+              class="choice"
+              id="grid-size"
+              maxlength="2"
+              inputmode="numeric"
+              type="text"
+            />
+            <p class="params">Local ?</p>
+            <input type="checkbox" class="choice" id="connection-mode" />
+            <p class="params">Bot fill :</p>
+            <span class="choice" id="bot-fill">OFF</span>
+            <p class="params">Game mode :</p>
+            <span class="choice" id="game-mode"> Classic</span>
+          </div>
+        </section>
+        <button type="submit" class="create-game" id="create-btn">
+          Create Game ⭐
+        </button>
+      </form>
     </div>
-
-
-</body>
-
+  </body>
 </html>
