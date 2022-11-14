@@ -13,7 +13,7 @@ const myPlayerEl = document.getElementById("my-player");
 //! GETTING ELEMENTS AND SETTING ONCLICKS
 // TODO Generate Score Elements
 let scoresElementsIds = [];
-for (let i = 0; i < nb; i++) {
+for (let i = 0; i < nbJoueurs; i++) {
     scoresElementsIds.push(`${i}-score`);
 }
 const scoresElements = scoresElementsIds.map((id) => document.getElementById(id))
