@@ -1,3 +1,4 @@
+/*tout est contenu dans le root --n est un valeur qui va changer plus tard */
 :root{
     --n : 2
 }
@@ -6,7 +7,7 @@
     display: block;
     margin: 0;
     padding : 0;
-    background-color: antiquewhite;
+    background-color: navajowhite;
 }
 .game {
     /* je crée une grille de 500*500 */
@@ -14,6 +15,7 @@
     height: 500px;
     width: 500px;
     display: grid;
+    /* je répète n fois 1 colonne de 1 unité et  1 colonne de 5 unités et j'ajoute 1 colonne à la fin*/
     grid-template-columns: repeat(var(--n), 1fr 5fr) 1fr;
     grid-template-rows: repeat(var(--n), 1fr 5fr) 1fr;
     margin: 3rem auto;
@@ -23,13 +25,6 @@
     background-color: black;
 }
 
-.h{
-    grid-column-end: auto;
-}
-
-.v {
-    grid-row-end: auto;
-}
 
 /*les cases sont coloriés en marron*/
 .tile {
@@ -45,7 +40,7 @@
     background-color: aqua;
 }
 .taken{
-    opacity: 30%;
+    opacity: 70%;
 }
 .first{
     background-color: darkorange;
@@ -61,3 +56,4 @@
     width: 2rem;
     height: 2rem;
 }
+

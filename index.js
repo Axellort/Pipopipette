@@ -1,5 +1,5 @@
 // d'abord je crée des variables et des fonctionjs que j'utilise plus tard
-
+//.append ajoute un element html à un autre et .push ajoute un element à une liste
 //grille à n cotes
 const n = 6;
 
@@ -8,18 +8,19 @@ const COLORS = ["red", "blue"];
 const CLASS_NAMES_PER_PLAYER = ["first", "second"];
 const CLASS_TAKEN = ["taken"];
 
+
 // recupere les elements fixes et onclick
- const scoresElementsIds = ["first-score", "second-score"];
+const scoresElementsIds = ["first-score", "second-score"];
 
 // .map permet de créer un nouvelle liste à partir d'une autre 
 // ici je crée deux élément ayant un id first-score et second-score
 const scoresElements = scoresElementsIds.map((id) => document.getElementById(id))
-let bordersV = []; 
+let bordersV = [];
 let bordersH = [];
 let tiles = [];
 let playerActu = 0;
-
-
+let indicatorJoueur=document.getElementById('playeractu')
+indicatorJoueur.setAttribute("class","playeractu " + CLASS_NAMES_PER_PLAYER[playerActu])
 //fonction qui permet d'ajouter au nom de mon bord "border-0/1" pour le colorer dans le css
 function remplir(borderEl) {
     borderEl.classList.add("border-" + playerActu);
@@ -31,12 +32,15 @@ function checkFull(tile) {
 }
 function checkRemplis(cases, joueurActuel) {
     // .flat permet de créer un nouveau tableau dans lequel j'extrais les sous  tableaux 
+    let newRempli = false
     for (let tile of cases.flat()) {
         if (checkFull(tile) && tile.appartenance == -1) {
             tile.appartenance = joueurActuel;
             colorerCase(tile)
+            newRempli = true
         }
     }
+    return newRempli;
 }
 //fonction qui permet d'ajouter à la class de ma case "first/second" et "taken" pour le colorer dans le css
 function colorerCase(tile) {
@@ -54,11 +58,11 @@ function compterLesPoints(cases) {
     return points;
 }
 
-//
+// je donne à la zone de texte d'id first score/seconde score mon point 
 function actualiserPoints() {
     const points = compterLesPoints(tiles);
-    for (let [idx, el] of scoresElements.entries()) {
-        el.innerText = points[idx]
+    for (let idx = 0; idx < scoresElements.length; idx++) {
+        scoresElements[idx].innerText = points[idx]
     }
 }
 
@@ -72,42 +76,41 @@ function getIndicatorClass(player) {
 
 function getNextJoueur() {
     playerActu = 1 - playerActu
-    playerActu.setAttribute("id",CLASS_NAMES_PER_PLAYER[playerActu%2])
+    indicatorJoueur.setAttribute("class","playeractu " + CLASS_NAMES_PER_PLAYER[playerActu])
     return playerActu;
 }
 
 //je crée ma fonction setonclick
 function setOnClick(el, str, i, j) {
     // si c'est un bord vertical
-        if (str == "v") {
-    //si je clique sur un élément je lance ce qu'il y a après
-            el.onclick = () => {
-    //si le bord vertical n'est pas tout à droite alors j'ajoute 1 à la case de mm coordonée tiles(i,j).clicsV[0] =1
-                if (i != n ) { tiles[i][j].clicsV[0] = 1; }
-    //si le bord vertical n'est pas tout à gauche alors j'ajoute 1 à la case située à gauche de mon bord
-                if (i != 0) { tiles[i - 1][j].clicsV[1] = 1; }
-    //je remplis mon bord avec la couleur
-                remplir(bordersV[i][j]);
-                checkRemplis(tiles, getJoueurActu());
-                getNextJoueur();
-                actualiserPoints();
-            }
-        } else if (str == "h") {
-    // même chose que pour les bords verticaux mais horizontaux
-            el.onclick = () => {
-                if ( j != n) { tiles[i][j].clicsH[0] = 1; }
-                if (j != 0) { tiles[i][j - 1].clicsH[1] = 1; }
-                remplir(bordersH[i][j]);
-                checkRemplis(tiles, getJoueurActu());
-                getNextJoueur();
-                actualiserPoints();
-            }
+    if (str == "v") {
+        //si je clique sur un élément je lance ce qu'il y a après
+        el.onclick = () => {
+            //si le bord vertical n'est pas tout à droite alors j'ajoute 1 à la case de mm coordonée tiles(i,j).clicsV[0] =1
+            if (i != n) { tiles[i][j].clicsV[0] = 1; }
+            //si le bord vertical n'est pas tout à gauche alors j'ajoute 1 à la case située à gauche de mon bord
+            if (i != 0) { tiles[i - 1][j].clicsV[1] = 1; }
+            //je remplis mon bord avec la couleur
+            remplir(bordersV[i][j]);
+            if( !checkRemplis(tiles, getJoueurActu()))  {getNextJoueur()};
+            actualiserPoints();
+        }
+    } else if (str == "h") {
+        // même chose que pour les bords verticaux mais horizontaux
+        el.onclick = () => {
+            if (j != n) { tiles[i][j].clicsH[0] = 1; }
+            if (j != 0) { tiles[i][j - 1].clicsH[1] = 1; }
+            remplir(bordersH[i][j]);
+            if( !checkRemplis(tiles, getJoueurActu()))  {getNextJoueur()};
+            actualiserPoints();
         }
     }
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // autres fonctions que j'utilise ppour créer le cadrillage
 
+// je donne à ma variable --n du css la valeur de n mon nombre de cotés
 function setNVariableCSS(n) {
     document.documentElement.style.setProperty("--n", n)
 }
@@ -175,11 +178,12 @@ function createDom(n) {
     let gameElements = [];
     //j'ajoute chaque ligne 
     for (let j = 0; j < n; j++) {
+        // c'est ce qu'on appelle le spread operator : je crée une nouvelle liste dans laquelle j'ai extrait les élements des 3 listes
         gameElements = [...gameElements, ...generateBorderLine(j, n), ...generateTileLine(j, n)];
     }
     //je rajoute une dernière pour fermer le cadrillage
     gameElements.push(...generateBorderLine(n, n));
-// je mets dans gameEl tous mes bords mes cases et mes petits carrés
+    // je mets dans gameEl tous mes bords mes cases et mes petits carrés
     gameEl.append(...gameElements);
 }
 
@@ -190,20 +194,20 @@ function createDom(n) {
 createDom(n);
 
 for (let i = 0; i < n; i++) {
-// je crée 3 tableaux de n listes pour les cases et les bords horizontaux et verticaux    
+    // je crée 3 tableaux de n listes pour les cases et les bords horizontaux et verticaux    
     tiles.push([]);
     bordersH.push([]);
     bordersV.push([]);
     for (let j = 0; j < n; j++) {
 
         console.log(i + ", " + j);
-// dans chaque liste du tableau "tiles" j'ajoute l'element d'identifiant tile-coordonnéex-coordonéey 
-// j'ajoute aussi clicsV et H qui indiquent si les 4 cotés ont été cliqués
+        // dans chaque liste du tableau "tiles" j'ajoute l'element d'identifiant tile-coordonnéex-coordonéey 
+        // j'ajoute aussi clicsV et H qui indiquent si les 4 cotés ont été cliqués
         tiles[i].push({ el: document.getElementById(`tile-${i}-${j}`), clicsH: [0, 0], clicsV: [0, 0], appartenance: -1 });
-// de même pour les bords verticaux et horizontaux j'ajoute les elements border-coordonnéex-coordonnéey
+        // de même pour les bords verticaux et horizontaux j'ajoute les elements border-coordonnéex-coordonnéey
         bordersV[i].push(document.getElementById(`border-${i}-${j}-V`));
         bordersH[i].push(document.getElementById(`border-${i}-${j}-H`));
-// je donne une fonction à chaque bord horizontal et vertical qui colore les bords selon la couleur du joueur(voirsetonclick)
+        // je donne une fonction à chaque bord horizontal et vertical qui colore les bords selon la couleur du joueur(voirsetonclick)
         setOnClick(bordersH[i][j], "h", i, j);
         setOnClick(bordersV[i][j], "v", i, j);
 
@@ -214,17 +218,17 @@ let right = n;
 // j'ajoute une liste à mon tableau pour l'extrêmité droite
 bordersV.push([]);
 for (let j = 0; j < n; j++) {
-//j'ajoute les éléments border-right-y pour passer de n à n+1 colonnes à ma grille
+    //j'ajoute les éléments border-right-y pour passer de n à n+1 colonnes à ma grille
     bordersV[right].push(document.getElementById(`border-${right}-${j}-V`));
-//je donne à mes bords la fonction setonclick
+    //je donne à mes bords la fonction setonclick
     setOnClick(bordersV[right][j], "v", right, j);
 }
 //je pose une variable bottom
 let bottom = n;
 for (let i = 0; i < n; i++) {
-//dans chaque liste du tableau je rajoute l'élément border-x-bottom pour passer de n à n+1 lignes
+    //dans chaque liste du tableau je rajoute l'élément border-x-bottom pour passer de n à n+1 lignes
     bordersH[i].push(document.getElementById(`border-${i}-${bottom}-H`));
-//je donne à mes bords setonclick
+    //je donne à mes bords setonclick
     setOnClick(bordersH[i][bottom], "h", i, bottom);
 }
 

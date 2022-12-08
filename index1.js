@@ -26,6 +26,8 @@ function checkRemplis(cases, joueurActuel) {
         if (checkFull(tile) && tile.appartenance == -1) {
             tile.appartenance = joueurActuel;
             colorerCase(tile)
+               
+
         }
     }
 }
