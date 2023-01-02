@@ -1,4 +1,4 @@
-/*tout est contenu dans le root --n est un valeur qui va changer plus tard */
+/*tout est contenu ____  dans le root --n est un valeur qui va changer plus tard */
 :root{
     --n : 2
 }
@@ -7,7 +7,12 @@
     display: block;
     margin: 0;
     padding : 0;
-    background-color: navajowhite;
+    background-color : rgb(176,196,222);
+    font-family: 'Despairs-Trial';
+    font-weight: 900;
+}
+span {
+    display: inline-block;
 }
 .game {
     /* je crée une grille de 500*500 */
@@ -16,44 +21,68 @@
     width: 500px;
     display: grid;
     /* je répète n fois 1 colonne de 1 unité et  1 colonne de 5 unités et j'ajoute 1 colonne à la fin*/
-    grid-template-columns: repeat(var(--n), 1fr 5fr) 1fr;
-    grid-template-rows: repeat(var(--n), 1fr 5fr) 1fr;
-    margin: 3rem auto;
+    grid-template-columns: repeat(var(--n), 1fr 9fr) 1fr;
+    grid-template-rows: repeat(var(--n), 1fr 9fr) 1fr;
+    margin: auto;
 }
 /* les bords et les carrés qui ont la class border et cross entre sont coloriés en noir */
-.border, .cross {
+.border {
     background-color: black;
 }
-
+.cross{
+    background-color: rgb(176,196,222);
+}
 
 /*les cases sont coloriés en marron*/
 .tile {
-    background-color: brown;
+    background-color: rgb(176,196,222);
     opacity: 30%;
 }
 
 /*les bords auquel j'ai ajouté à leur classe border-0 sont coloriés */
 .border-0{
-    background-color: darkorange;
+    background-color: white;
 }
 .border-1{
-    background-color: aqua;
+    background-color: white;
 }
 .taken{
     opacity: 70%;
 }
 .first{
-    background-color: darkorange;
+    background-color: black;
 }
 .second{
-    background-color:aqua;
+    background-color: white;
 }
 
 .playeractu{
     position: fixed;
     right: 0;
     top: 0;
-    width: 2rem;
+    width: 10rem;
     height: 2rem;
+}
+
+title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 200%;
+}
+
+h2{
+    text-align: center;
+}
+
+p{
+    text-align: center;
+    font-weight: bold;
+}
+ 
+@font-face {
+    font-family:'Despairs-Trial' ;
+    src: url(font/Despairs\ Trial.woff) format('woff'),
+         url(font/Despairs\ Trial.woff2) format('woff2');
+
 }
 

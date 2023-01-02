@@ -1,0 +1,87 @@
+*{
+    font-family: 'Despairs-Trial';
+    font-weight: 900;
+}
+
+body{
+    background-image: radial-gradient(circle at 120.71% 50%,
+     #ffffff 0, #ffffff 25%, #cde5f2 50%, rgb(176,196,222) 75%, rgb(176,196,222) 100%);
+}
+
+
+@font-face {
+    font-family:'Despairs-Trial' ;
+    src: url(font/Despair\ Trial.woff) format('woff'),
+         url(font/Despairs\ Trial.woff2) format('woff2')
+}
+
+/* le span c'est pour avoir l'animation en ligne pcq c'est un conteneur en ligne*/
+
+.container {
+    max-width: 1600px;
+    margin: 50px;
+    padding: 0px 350px;
+}
+p {
+    text-transform: uppercase;
+    color: #222;
+    font-weight: 900;
+    color: transparent;;
+}
+/*je crée mon bloc qui est caché au début*/
+p span {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    font-size: 8vw;
+}
+/*pseudo élément qui cible l'emplacement après le contenu html et qui va etre au debut à -100% donc invisible*/
+p span::after {
+    content: "";
+    display: block;
+    /*meme position que l'élément que yavait avant*/
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+}
+/*mon texte apparait */
+p:nth-child(1) {
+    animation: txt-appearance 0s 1s forwards;
+}
+/*mon bloc slide in et slide out*/
+p:nth-child(1) span::after {
+    background:
+    radial-gradient(circle at 120.71% 50%,
+     #ffffff 0, #ffffff 25%, #cde5f2 50%, rgb(176,196,222) 75%, rgb(176,196,222) 100%);
+    animation: slide-in 0.75s ease-out forwards,
+    slide-out 0.75s 1s ease-out forwards;
+}
+
+/*on passe de -100 à 0 à 100%*/
+@keyframes slide-in {
+    100% {
+        transform: translateX(0%);
+    }
+}
+@keyframes slide-out {
+    100% {
+        transform: translateX(100%)
+    }
+}
+@keyframes txt-appearance {
+    100% {
+        color: #222;
+    }
+}
+
+button{
+    margin: 0px 570px 50px;
+    height: 3vw;
+    width: 9vw;
+    background: radial-gradient(circle at 120.71% 50%,
+    #ffffff 0, #ffffff 25%, #cde5f2 50%, rgb(176,196,222) 75%, rgb(176,196,222) 100%) ;
+    font-weight: 900;
+}
