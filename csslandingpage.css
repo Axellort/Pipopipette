@@ -49,15 +49,15 @@ p span::after {
 }
 /*mon texte apparait */
 p:nth-child(1) {
-    animation: txt-appearance 0s 1s forwards;
+    animation: txt-appearance 0s 0.75s forwards;
 }
 /*mon bloc slide in et slide out*/
 p:nth-child(1) span::after {
     background:
     radial-gradient(circle at 120.71% 50%,
      #ffffff 0, #ffffff 25%, #cde5f2 50%, rgb(176,196,222) 75%, rgb(176,196,222) 100%);
-    animation: slide-in 0.75s ease-out forwards,
-    slide-out 0.75s 1s ease-out forwards;
+    animation: slide-in 0.5s ease-out forwards,
+    slide-out 0.5s 0.75s ease-out forwards;
 }
 
 /*on passe de -100 à 0 à 100%*/
