@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pipopinette</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="index.js" defer async=false></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      var exports = {};
+    </script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.js"
+    ></script>
+    <script defer src="index.js" defer async="false"></script>
+    <script defer src="main.js"></script>
+    <script defer src="minimaxTest.js"></script>
     <script src="themeManager.js" defer></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="title-container">
-        <h1 class="main-title blue">Pipopipette</h1>
-        <h1 class="main-title red">Pipopipette</h1>
+      <h1 class="main-title blue">Pipopipette</h1>
+      <h1 class="main-title red">Pipopipette</h1>
     </div>
 
-    <main class="game" id="game">
-    </main>
+    <main class="game" id="game"></main>
     <h1>Scores</h1>
     <h3 id="first-score" class="player-score">X</h3>
     <h3 id="second-score" class="player-score">Y</h3>
     <div class="my-player" id="my-player"></div>
     <button class="theme-selector" id="theme-selector">☀️</button>
-</body>
-
+  </body>
 </html>

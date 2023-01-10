@@ -1,6 +1,3 @@
-"use strict";
-exports.__esModule = true;
-var main_1 = require("./main");
 console.log("find extrem test");
 /*
 let listeCoups = [[{ dir: 0, x: 0, y: 1 },
@@ -20,7 +17,7 @@ console.log(findExtrem(map, true)); WORKS ( I THINK )
 */
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 var n = 3;
-var maxDepth = 2;
+var maxDepth = 100;
 var bords = [Array(), Array()];
 var tiles = Array();
 for (var i = 0; i <= n; i++) {
@@ -31,14 +28,20 @@ for (var i = 0; i <= n; i++) {
         tiles[i] = Array(n);
     for (var j = 0; j <= n; j++) {
         if (i != n)
-            bords[0][i][j] = { appartenance: randSplit(3) - 1, id: { dir: 0, x: i, y: j } };
+            bords[0][i][j] = {
+                appartenance: randSplit(3) - 1,
+                id: { dir: 0, x: i, y: j }
+            };
         if (j != n)
-            bords[1][i][j] = { appartenance: randSplit(3) - 1, id: { dir: 1, x: i, y: j } };
+            bords[1][i][j] = {
+                appartenance: randSplit(3) - 1,
+                id: { dir: 1, x: i, y: j }
+            };
         if (i != n && j != n)
             tiles[i][j] = { appartenance: -1, x: i, y: j };
     }
 }
-var board = new main_1.Board(n, bords, tiles, false);
+var board = new Board(n, bords, tiles, false);
 for (var _i = 0, _a = board.tiles.flat(); _i < _a.length; _i++) {
     var tile = _a[_i];
     if (board.checkFull(tile)) {
@@ -46,10 +49,25 @@ for (var _i = 0, _a = board.tiles.flat(); _i < _a.length; _i++) {
     }
 }
 console.log(JSON.stringify(board, null, 2));
-console.log("----------------------------------------------------------------------------");
+logDivider();
 console.time("minimax");
-console.log(JSON.stringify((0, main_1.miniMax)(board, maxDepth), null, 2));
+//console.log(JSON.stringify(board.bordsLibres(), null, 2));
+console.log(board.bordsLibres().length);
+logDivider();
+var path = miniMax(board, maxDepth);
+console.log(JSON.stringify(path, null, 2));
 console.timeEnd("minimax");
+renderBoard(board);
+var _b = path.coups, first = _b[0], coups = _b.slice(1);
+var newBoard = board;
+for (var _c = 0, coups_1 = coups; _c < coups_1.length; _c++) {
+    var coup = coups_1[_c];
+    console.log(coup);
+    newBoard = newBoard.jouer(coup);
+}
+setTimeout(function () {
+    renderBoard(newBoard);
+}, 2000);
 function randSplit(n) {
     var rand = Math.random();
     var dx = 1 / n;
@@ -58,4 +76,7 @@ function randSplit(n) {
             return i;
     }
     return n;
+}
+function logDivider() {
+    console.log("----------------------------------------------------------------------------");
 }

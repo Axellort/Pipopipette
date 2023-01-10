@@ -13,9 +13,6 @@
     "declaration": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "target": "ES2017",
-    "jsx": "react",
-    "module": "ESNext",
-    "moduleResolution": "node"
+    "target": "ES2017"
   }
 }
