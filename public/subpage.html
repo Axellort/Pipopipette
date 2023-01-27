@@ -5,32 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="subpage-style.css">
+    <script defer src="subpage-main.js"></script>
     <title>Pipopipette</title>
 </head>
 <body>
-    <a href="index.html">
        <h1  class="title-container">
-        <span>CARRE VIP</span></h1></a>
+        <span>CARRE VIP</span></h1>
     <div class="container-connexion">
         <h2>Se connecter</h2>
         <input type="text"
             class="mail-input"
+            id="mail"
             placeholder="Votre adresse e-mail">
         <input type="text"
            class="mdp-input"
+           id="mdp"
            placeholder="Saisissez votre mot de passe" >
-        <button class="button" role="button">Connexion</button>  
+        <button class="button" onclick="getInfoConnexion()">Connexion</button>  
     </div>
     <div class="container-inscription">
         <h2>S'inscrire</h2>
         <input type="text"
             class="mail-input"
+            id="mail-inscri"
             placeholder="Votre adresse e-mail">
         <input type="text"
            class="mdp-input"
+           id="mdp-inscri"
            placeholder="Saisissez votre mot de passe" >
-        <button class="button" role="button">Inscription</button>
+        <button class="button" onclick="getInfoInscription()">Inscription</button>
     </div>
-    
+    <a href="index.html"><button 
+        class="button" >Jouer sans compte
+    </button></a>
 </body>
 </html>

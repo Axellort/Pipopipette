@@ -27,11 +27,21 @@ h2{
     font-family: sans-serif;
     color: white;
     text-align: center;
+    position: relative;
+}
+a > button{
+    font-family: sans-serif;
+    color: white;
+    position:relative;
+    top: 60vh;
+    text-align: center;
+
 }
 
 .title-container{
     margin-bottom: 2vh;
     margin-top: 2.3vh;
+    margin-bottom: 3vw;
     font-size: 4.5rem;
     text-align: center;
 }
@@ -43,7 +53,7 @@ h2{
     grid-template-rows: 8fr 10px 4fr;
     width: 20vw;
     max-width: 800px;
-    left: 20%;
+    left: 25%;
     row-gap: 3vw;
     font-family: sans-serif;
     border: 2px solid white;
@@ -51,7 +61,7 @@ h2{
 }
 
 .container-inscription {
-    translate:190%;
+    translate:170%;
     position: relative;
     display: grid;
     grid-template-columns: 1fr;
@@ -126,6 +136,3 @@ div{
   outline-offset: .05em;
 }
 
-.a{
-    color: transparent;
-}
