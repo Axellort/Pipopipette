@@ -3,10 +3,11 @@
 }
 
 body{
-    background-image: radial-gradient(circle at 90.56% -7.92%, #8a5b5b 0, #88565a 6.25%,
+    background-image: repeating-radial-gradient(circle at 90.56% -7.92%, #8a5b5b 0, #88565a 6.25%,
     #86505a 12.5%, #824959 18.75%, #7d4159 25%, #773959 31.25%, #6f3159 37.5%, #652859 43.75%,
     #591f59 50%, #4b185a 56.25%, #3a135b 62.5%, #24125d 68.75%, #00125f 75%, #001460 81.25%,
     #001461 87.5%, #001461 93.75%, #001461 100%);
+    min-height: 96vh;
 }
 
 @font-face {
@@ -136,3 +137,20 @@ div{
   outline-offset: .05em;
 }
 
+.inscription{
+    margin-left: 2vh;
+    margin-right: 2vh;
+    background-color: #253EE7;
+    border: 2px solid white ;
+    border-radius: 5px;
+    padding: 0.3rem;
+}
+.connexion{
+    margin-left: 2vh;
+    margin-right: 2vh;
+    background-color: #F55139;
+    border: 2px solid white ;
+    border-radius: 5px;
+    padding: 0.3rem;
+
+}
